@@ -11,7 +11,7 @@ export const loginSection = () => {
         <p>Iniciar sesión</p>
         <input type="email"  id="email" placeholder="Email..."/><br>
         <input type="password"  id="password" placeholder="Password..."/><br>
-        <button>Login</button>
+        <button><a href="#/application">Login</a></button>
         <a href="">¿Olvidaste tu contraseña?</a>
       </section>
         <a href="">Facebook</a>
