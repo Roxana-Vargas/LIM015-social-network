@@ -5,7 +5,6 @@ export const registerSection = () => {
   containerRegister.className = 'registerSection';
   containerRegister.innerHTML = `
   <section>
-    <img src="../../imagenes/logo-forms.png" alt="">
     <p>¡Conecta con otros programadores!</p>
   </section>
   <section>
@@ -14,7 +13,7 @@ export const registerSection = () => {
     <input type="email"  id="email" placeholder="Email"/><br>
     <input type="password"  id="password" placeholder="Contraseña ...."/><br>
     <input type="password"  id="passwordConfirm" placeholder="Confirma tu contraseña ...."/><br>
-    <button class="button" id="btnRegister">Registrar</button>
+    <button class="button" id="btnRegister"><a href="/register">Registrar</a></button>
   `;
   return containerRegister;
   // root.appendChild(containerRegister);

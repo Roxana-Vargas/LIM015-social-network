@@ -5,7 +5,6 @@ export const loginSection = () => {
   containerLogin.className = 'loginSection';
   containerLogin.innerHTML = `
     <section>
-      <img src="../../imagenes/logo-forms.png" alt = "">
       <p>¡Resuelve tus dudas y conecta con otros programadores!</p>
     </section>
       <section>
@@ -18,7 +17,7 @@ export const loginSection = () => {
         <a href="">Facebook</a>
         <a href="">Google</a>
         <section>
-        <p>¿No tienes cuenta?</p><a href="" id="linkRegister">Registrate aquí</a>
+        <p>¿No tienes cuenta?</p><a href="#/register" id="linkRegister">Registrate aquí</a>
       </section>
     `;
   return containerLogin;

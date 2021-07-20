@@ -5,9 +5,8 @@ export const changeView = (route) => {
   root.innerHTML = '';
   switch (route) {
     case '#/': return root.appendChild(components.welcome());
-    case '#/login': return root.appendChild(components.Login());
-    case '#/Register': return root.appendChild(components.Register());
-    case '#/post': return root.appendChild(components.application());
+    case '#/login': return root.appendChild(components.login());
+    case '#/register': return root.appendChild(components.register());
     default:
       break;
   }
