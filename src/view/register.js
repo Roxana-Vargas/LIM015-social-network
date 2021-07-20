@@ -13,7 +13,7 @@ export const registerSection = () => {
     <input type="email"  id="email" placeholder="Email"/><br>
     <input type="password"  id="password" placeholder="Contraseña ...."/><br>
     <input type="password"  id="passwordConfirm" placeholder="Confirma tu contraseña ...."/><br>
-    <button class="button" id="btnRegister"><a href="/register">Registrar</a></button>
+    <button class="button" id="btnRegister"><a href="#/login">Registrar</a></button>
   `;
   return containerRegister;
   // root.appendChild(containerRegister);
