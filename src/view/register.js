@@ -5,15 +5,15 @@ export const registerSection = () => {
   containerRegister.className = 'registerSection';
   containerRegister.innerHTML = `
   <section>
-    <p>¡Conecta con otros programadores!</p>
+    <p class="greetings">¡Conecta con otros programadores!</p>
   </section>
-  <section>
-    <p>Regístrate</p>
-    <input type="text"  id="nameUser" placeholder="Nombre"/><br>
-    <input type="email"  id="email" placeholder="Email"/><br>
-    <input type="password"  id="password" placeholder="Contraseña ...."/><br>
-    <input type="password"  id="passwordConfirm" placeholder="Confirma tu contraseña ...."/><br>
-    <button class="button" id="btnRegister"><a href="#/login">Registrar</a></button>
+  <section class="inputBox">
+    <p class="text">Regístrate</p>
+    <input type="text" class="inputType"  id="nameUser" placeholder="Nombre"/><br>
+    <input type="email" class="inputType"  id="email" placeholder="Email"/><br>
+    <input type="password" class="inputType" id="password" placeholder="Contraseña ...."/><br>
+    <input type="password" class="inputType" id="passwordConfirm" placeholder="Confirma tu contraseña ...."/><br>
+    <button class="button" class="inputType" id="btnRegister"><a href="#/login">Registrar</a></button>
   `;
   return containerRegister;
   // root.appendChild(containerRegister);

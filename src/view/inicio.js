@@ -5,21 +5,25 @@ export const loginSection = () => {
   containerLogin.className = 'loginSection';
   containerLogin.innerHTML = `
     <section>
-      <p>¡Resuelve tus dudas y conecta con otros programadores!</p>
+      <p class="greetings">¡Resuelve tus dudas y conecta con otros programadores!</p>
     </section>
-      <section>
-        <p>Iniciar sesión</p>
-        <input type="email"  id="email" placeholder="Email..."/><br>
-        <input type="password"  id="password" placeholder="Password..."/><br>
-        <button><a href="#/application">Login</a></button>
-        <a href="">¿Olvidaste tu contraseña?</a>
+    <section class="box">
+      <p class="text">Iniciar sesión</p>
+      <input type="email"  class="inputType" id="email" placeholder="Email..."/><br>
+      <input type="password"  class="inputType" id="password" placeholder="Password..."/><br>
+      <section class="buttonSection">
+        <button  class="button"><a href="#/application">Login</a></button>
+        <a href="" class="link">¿Olvidaste tu contraseña?</a>
       </section>
-        <a href="">Facebook</a>
-        <a href="">Google</a>
-        <section>
-        <p>¿No tienes cuenta?</p><a href="#/register" id="linkRegister">Registrate aquí</a>
-      </section>
-    `;
+      <section class="sectionIcons">
+      <a href=""><i class="fab fa-facebook"></i></a>
+      <a href=""><i class="fab fa-google"></i></a>
+    </section>
+    </section>
+    <section class="linkRegister">
+      <p class="text">¿No tienes cuenta?</p><a href="#/register" id="linkRegister" class="link">Registrate aquí</a>
+    </section>
+  `;
   return containerLogin;
   // root.appendChild(containerLogin);
 };

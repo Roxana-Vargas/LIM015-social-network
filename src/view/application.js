@@ -4,10 +4,10 @@ export const appSection = () => {
   const containerApp = document.createElement('section');
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
-    <section>
-      <input type="text" placeholder="Buscar">
-      <textarea placeholder="Comparte con la comunidad"></textarea>
-      <button>Publicar</button>
+    <section class="makePost">
+      <input type="text" class="inputType" placeholder="Buscar">
+      <textarea class="inputType" placeholder="Comparte con la comunidad"></textarea>
+      <button  class="button">Publicar</button>
     </section>
     <section>
     </section>

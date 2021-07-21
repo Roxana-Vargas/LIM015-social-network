@@ -5,18 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" type="image/png" href="./imagenes/logo-interfaz1.png">
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/971ef92afb.js" crossorigin="anonymous"></script>
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <title>Coders Beginners</title>
 </head>
 <body>
-  <header>
-    <img src="imagenes/logo-interfaz1.png" alt="logo">
+  <header class="header">
+    <img src="imagenes/logo-nav.png" alt="logo" class="imgLogo">
   </header>
-
 
   <section id="root"></section>
 
   <footer>©Copyright - Todos los derechos reservados</footer>
   <script type="module" src="main.js"></script>
   <script type="module" src="./view-controller/router.js"></script>
+
+  <!-- Firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+<script src="./firebase/fireBase-config.js"></script>
+
 </body>
 </html>

@@ -6,7 +6,7 @@ export const welcomeSection = () => {
   containerWelcome.innerHTML = `
   <section id="welcome">
     <p>Conecta con otros PROGRAMADORES</p>
-    <button id="btnStart" class="button"><a href='#/login'>Get Start</a></button>
+    <button id="btnStart"><a href='#/login'>Get Start</a></button>
   </section>
     `;
   return containerWelcome;
