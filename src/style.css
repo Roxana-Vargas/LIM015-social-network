@@ -124,7 +124,7 @@ a {
     min-height: 85vh;
 }
 
-.box {
+.formLogin {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -166,7 +166,7 @@ a {
     min-height: 85vh;
 }
 
-.inputBox {
+.formRegister {
     display: flex;
     flex-direction: column;
     align-items: center;
