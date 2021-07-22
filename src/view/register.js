@@ -13,9 +13,10 @@ export const registerSection = () => {
     <input type="email" class="inputType"  id="emailRegister" placeholder="Email" autocomplete="on"/><br>
     <input type="password" class="inputType" id="passwordRegister" placeholder="Contraseña ...." autocomplete="on"/><br>
     <input type="password" class="inputType" id="passwordConfirmRegister" placeholder="Confirma tu contraseña ...." autocomplete="on"/><br>
-    <button class="button" class="inputType" id="btnRegister"><a href="#/login">Registrar</a></button>
+    <button type = "submit" class="button" class="inputType" id="btnRegister"><a href="#/login">Registrar</a></button>
   </form>
   `;
+
   return containerRegister;
   // root.appendChild(containerRegister);
 };
