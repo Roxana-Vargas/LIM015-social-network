@@ -1,6 +1,5 @@
 export const registerSection = () => {
-  // const root = document.getElementById('root');
-
+  const containerAll = document.createElement('section');
   const containerRegister = document.createElement('section');
   containerRegister.className = 'registerSection';
   containerRegister.innerHTML = `
@@ -13,10 +12,27 @@ export const registerSection = () => {
     <input type="email" class="inputType"  id="emailRegister" placeholder="Email" autocomplete="on"/><br>
     <input type="password" class="inputType" id="passwordRegister" placeholder="Contraseña ...." autocomplete="on"/><br>
     <input type="password" class="inputType" id="passwordConfirmRegister" placeholder="Confirma tu contraseña ...." autocomplete="on"/><br>
-    <button type = "submit" class="button" class="inputType" id="btnRegister"><a href="#/login">Registrar</a></button>
+    <button type = "submit" class="button" class="inputType" id="btnRegister">Registrar</button>
+    
   </form>
   `;
+  const auth = firebase.auth();
+  containerAll.appendChild(containerRegister);
+  const btnRegister = containerAll.querySelector('#btnRegister');
 
-  return containerRegister;
-  // root.appendChild(containerRegister);
+  btnRegister.addEventListener('click', (event) => {
+    // const auth = firebase.auth();
+    event.preventDefault();
+    const emailRegister = containerAll.querySelector('#emailRegister').value;
+    const passwordRegister = containerAll.querySelector('#passwordRegister').value;
+    console.log(emailRegister, passwordRegister);
+
+    auth.createUserWithEmailAndPassword(emailRegister, passwordRegister)
+      .then((userCredential) => {
+        console.log('sign in');
+        console.log(userCredential);
+        window.location.hash = '#/login';
+      });
+  });
+  return containerAll;
 };
