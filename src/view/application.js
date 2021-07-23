@@ -1,21 +1,31 @@
 export const Nav = () => {
+  const containerNav = document.createElement('section');
   const container = document.createElement('nav');
 
   container.innerHTML = `
     <ul>
-      <li><a href='#/application' style="color: black;"> Inicio </a></li>
-      <li><a href='#/profile' style="color: black;"> Mi Perfil </a> </li>
-      <li><a href='#/top' style="color: black;"> Top </a></li>
-      <li><a href='#/login' style="color: black;"> Log Out </a></li>
+      <li><a href='#/application'"> Inicio </a></li>
+      <li><a href='#/profile'> Mi Perfil </a> </li>
+      <li><a href='#/top'> Top </a></li>
+      <li class= "logOut"><a href='#/login'> Log Out </a></li>
     </ul>
     `;
-  return container;
+  containerNav.appendChild(container);
+  const logOut = containerNav.querySelector('.logOut');
+
+  logOut.addEventListener('click', (event) => {
+    event.preventDefault();
+    const auth = firebase.auth();
+    auth.signOut().then(() => {
+      console.log('Deslogueado');
+      window.location.hash = '#/login';
+    });
+  });
+
+  return containerNav;
 };
 
-
 export const appSection = () => {
-  // const root = document.getElementById('root');
-
   const containerApp = document.createElement('section');
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
@@ -28,5 +38,4 @@ export const appSection = () => {
     </section>
     `;
   return containerApp;
-  // root.appendChild(containerPost);
 };

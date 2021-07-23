@@ -1,6 +1,4 @@
 export const welcomeSection = () => {
-  // const root = document.getElementById('root');
-
   const containerWelcome = document.createElement('section');
   containerWelcome.className = 'welcomeSection';
   containerWelcome.innerHTML = `
@@ -10,5 +8,4 @@ export const welcomeSection = () => {
   </section>
     `;
   return containerWelcome;
-  // root.appendChild(containerWelcome);
 };

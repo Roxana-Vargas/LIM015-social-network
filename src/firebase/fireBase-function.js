@@ -1,4 +1,4 @@
-const auth = firebase.auth();
+/* const auth = firebase.auth();
 // Función para registrar usuario
 export const registerUser = () => {
   const signInform = document.querySelector('#root');
@@ -14,6 +14,7 @@ export const registerUser = () => {
       auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
           console.log('sign in');
+          console.log(userCredential);
         });
     }
   });
@@ -30,7 +31,8 @@ export const loginUser = () => {
       auth.signInWithEmailAndPassword(emailLogin, passwordLogin)
         .then((userCredential) => {
           console.log('login');
+          console.log(userCredential);
         });
     }
   });
-};
+}; */
