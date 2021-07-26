@@ -8,6 +8,9 @@
 .header {
     background-color: #FB991C;
     padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .imgLogo {
@@ -53,6 +56,9 @@ a {
     margin: 0.3rem;
     padding: 0.2rem;
     width: 300px;
+    width: 100%;
+    outline: none;
+    resize: none;
 }
 
 .button {
@@ -175,6 +181,36 @@ a {
 }
 
 /* ***** Post page ***** */
+.disable {
+    display: none;
+}
+
+.fa-bars option[disabled]{
+    display: none;
+}
+.fa-bars{
+    display: flex;
+    color: #fff;
+    font-size: 30px;
+    margin-right: 0.5rem;
+}
+
+.navApp option[disabled]{
+    display: none;
+}
+.navApp{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    list-style: none;
+    background: #FB991C;
+}
+
+.disable{
+    display: none;
+}
+
 .postSection {
     display: flex;
     flex-flow: column wrap;
@@ -190,14 +226,58 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    padding: 0.5rem;
 }
 
-
-/*
-.oculto {
-    display: none;
-
+#containerPosts{
+    padding: 0.5rem;
 }
-.visible {
-    display: block;
-}*/
+.postTemplate{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+    margin: 0.5rem 0;
+    border: 2px solid #939393;
+}
+
+.userNameTag{
+    display: flex;
+    align-self: flex-start;
+    padding: 0.1rem 0.1rem 0.1rem 0;
+    color: #FB991C;
+}
+
+.postTextarea .inputType{
+    background: #F3F3F3;
+}
+.areaPost {
+    resize: none;
+    width:-webkit-fill-available;
+    height:100px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+    border-style: none;
+    outline: none;
+}
+
+.icons{
+    display: flex;
+    align-self: flex-end;
+}
+
+.fa-edit, .fa-trash, .fa-comment-alt, .fa-heart{
+    padding-left: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.textareaEdit {
+    border-color: #308197;
+}
+
+.btnActualizar {
+    background: #308197;
+}
+
