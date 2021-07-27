@@ -1,3 +1,10 @@
+import {
+  loginUser,
+  loginGoogle,
+  loginFacebook,
+  templatedeprueba,
+} from '../firebase/fireBase-function.js';
+
 export const loginSection = () => {
   const containerAll = document.createElement('section');
   const containerLogin = document.createElement('section');
@@ -24,55 +31,26 @@ export const loginSection = () => {
     </section>
   `;
   containerAll.appendChild(containerLogin);
-  const auth = firebase.auth();
-
   const btnLogin = containerAll.querySelector('#btnLogin');
 
   btnLogin.addEventListener('click', (event) => {
-    // const auth = firebase.auth();
     event.preventDefault();
     const emailLogin = containerAll.querySelector('#emailLogin').value;
     const passwordLogin = containerAll.querySelector('#passwordLogin').value;
-    console.log(emailLogin, passwordLogin);
-
-    auth.signInWithEmailAndPassword(emailLogin, passwordLogin)
-      .then((userCredential) => {
-        console.log('sign in');
-        console.log(userCredential);
-        window.location.hash = '#/application';
-      });
+    loginUser(emailLogin, passwordLogin);
+    templatedeprueba();
   });
 
   const google = containerAll.querySelector('.google');
   google.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log('botongoogle');
-    // const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        console.log('ingreso con google');
-        console.log(result);
-        window.location.hash = '#/application';
-      }).catch((err) => {
-        console.log(err);
-      });
+    loginGoogle();
   });
 
   const facebook = containerAll.querySelector('.facebook');
   facebook.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log('botonfacebook');
-    // const auth = firebase.auth();
-    const provider = new firebase.auth.FacebookAuthProvider();
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        console.log('ingreso con facebook');
-        console.log(result);
-        window.location.hash = '#/application';
-      }).catch((err) => {
-        console.log(err);
-      });
+    loginFacebook();
   });
 
   return containerAll;

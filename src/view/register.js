@@ -1,3 +1,5 @@
+import { registerUser } from '../firebase/fireBase-function.js';
+
 export const registerSection = () => {
   const containerAll = document.createElement('section');
   const containerRegister = document.createElement('section');
@@ -16,7 +18,7 @@ export const registerSection = () => {
     
   </form>
   `;
-  const auth = firebase.auth();
+  // const auth = firebase.auth();
   containerAll.appendChild(containerRegister);
   const btnRegister = containerAll.querySelector('#btnRegister');
 
@@ -25,14 +27,7 @@ export const registerSection = () => {
     event.preventDefault();
     const emailRegister = containerAll.querySelector('#emailRegister').value;
     const passwordRegister = containerAll.querySelector('#passwordRegister').value;
-    console.log(emailRegister, passwordRegister);
-
-    auth.createUserWithEmailAndPassword(emailRegister, passwordRegister)
-      .then((userCredential) => {
-        console.log('sign in');
-        console.log(userCredential);
-        window.location.hash = '#/login';
-      });
+    registerUser(emailRegister, passwordRegister);
   });
   return containerAll;
 };
