@@ -2,7 +2,6 @@ import {
   loginUser,
   loginGoogle,
   loginFacebook,
-  templatedeprueba,
 } from '../firebase/fireBase-function.js';
 
 export const loginSection = () => {
@@ -38,7 +37,6 @@ export const loginSection = () => {
     const emailLogin = containerAll.querySelector('#emailLogin').value;
     const passwordLogin = containerAll.querySelector('#passwordLogin').value;
     loginUser(emailLogin, passwordLogin);
-    templatedeprueba();
   });
 
   const google = containerAll.querySelector('.google');
