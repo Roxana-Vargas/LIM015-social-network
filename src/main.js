@@ -3,7 +3,6 @@
 import { myFunction } from './index.js';
 
 myFunction(); */
-import { templatedeprueba } from './firebase/fireBase-function.js';
 
 import { changeView } from './view-controller/router.js';
 // import { registerUser, loginUser } from './firebase/fireBase-function.js';
@@ -13,7 +12,6 @@ const init = () => {
   // changeView(window.location.hash = '#/');
   changeView(window.location.hash);
   // en que ruta esta pagina
-  templatedeprueba();
   window.addEventListener('hashchange', () => changeView(window.location.hash));
 };
 

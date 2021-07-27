@@ -1,7 +1,7 @@
 import {
   logOut,
   savePost,
-  getPost,
+  showAllPosts,
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
@@ -59,33 +59,36 @@ export const appSection = () => {
   const postSection = containerAll.querySelector('#containerPosts'); // Captura la sección donde se va a publicar
 
   // Llamar funcion para mostrar
-  const mostrar = async () => {
-    const posts = await getPost();
-    postSection.innerHTML = '';
-    posts.forEach((doc) => { // recorre todos los posts obtenidos
-      const postsData = doc.data();
-      postsData.id = doc.id;
-      postSection.innerHTML += `
-      <section class='postTemplate'>
-      <p class='userNameTag'>UserName</p>
-      <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
-       <section class='icons sectionIcons'>
-        <i class="fas fa-edit btnEdit" data-id="${postsData.id}"></i>
-        <i class="fas fa-trash btnDelete" data-id="${postsData.id}"></i>
-        <i class="fas fa-comment-alt"></i>
-        <i class="fas fa-heart"></i>
-       </section>
-      </section>`;
-    });
-  };
+  // const mostrar = async () => {
+  //   const posts = await getPost();
+  //   postSection.innerHTML = '';
+  //   posts.forEach((doc) => { // recorre todos los posts obtenidos
+  //     const postsData = doc.data();
+  //     postsData.id = doc.id;
+  //     postSection.innerHTML += `
+  //     <section class='postTemplate'>
+  //     <p class='userNameTag'>UserName</p>
+  //     <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
+  //      <section class='icons sectionIcons'>
+  //       <i class="fas fa-edit btnEdit" data-id="${postsData.id}"></i>
+  //       <i class="fas fa-trash btnDelete" data-id="${postsData.id}"></i>
+  //       <i class="fas fa-comment-alt"></i>
+  //       <i class="fas fa-heart"></i>
+  //      </section>
+  //     </section>`;
+  //   });
+  // };
 
+  showAllPosts(postSection);
   // llama a la funcion para guardar post y le pasa como argumento el post
   btnPost.addEventListener('click', async (event) => { // pasa el evento al botón para publicar
     event.preventDefault();
     const post = containerAll.querySelector('#postTextarea').value; // al dar click, captura el valor ingresado en el textarea
     savePost(post);
     containerAll.querySelector('#postTextarea').value = ''; // cosa rara
-    mostrar();
+    // mostrar();
+    postSection.innerHTML = '';
+    showAllPosts(postSection);
   });
   return containerAll;
 };
