@@ -1,13 +1,13 @@
 import {
   logOut,
   savePost,
-  showAllPosts,
+  getPost,
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
   const containerNav = document.createElement('section');
   const container = document.createElement('nav');
-  containerNav.classList = 'disable';
+  // containerNav.classList = 'disable';
   const menuBurguer = document.getElementById('menuBurguer');
 
   // funcion toggle ícono de menu
@@ -18,10 +18,10 @@ export const Nav = () => {
 
   container.innerHTML = `
   <ul class='navApp' id='menuDropdown'>
-   <li><a href='#/application' class='linkNav'> Inicio </a></li>
-   <li><a href='#/profile' class='linkNav'> Mi Perfil </a> </li>
-   <li><a href='#/top' class='linkNav'> Top </a></li>
-   <li class= "logOut"><a href='#/login'class='linkNav' > Log Out </a></li>
+    <li><a href='#/application' class='linkNav'> Inicio </a></li>
+    <li><a href='#/profile' class='linkNav'> Mi Perfil </a> </li>
+    <li><a href='#/top' class='linkNav'> Top </a></li>
+    <li class= "logOut"><a href='#/login'class='linkNav' > Log Out </a></li>
   </ul>
     `;
   containerNav.appendChild(container);
@@ -37,6 +37,29 @@ export const Nav = () => {
   });
 
   return containerNav;
+};
+
+const emailUser = localStorage.getItem('email');
+console.log(emailUser);
+
+/* **********Función para mostrar todos los posts********** */
+const showAllPosts = async (seccion) => {
+  const posts = await getPost();
+  posts.forEach((doc) => { // recorre todos los posts obtenidos
+    const nuevaseccion = document.createElement('section');
+    nuevaseccion.innerHTML += `
+    <section class='postTemplate'>
+    <p class='userNameTag'>${emailUser}</p>
+    <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
+    <section class='icons sectionIcons'>
+      <i class="fas fa-edit btnEdit"></i>
+      <i class="fas fa-trash btnDelete"></i>
+      <i class="fas fa-comment-alt"></i>
+      <i class="fas fa-heart"></i>
+    </section>
+    </section>`;
+    seccion.appendChild(nuevaseccion);
+  });
 };
 
 export const appSection = () => {

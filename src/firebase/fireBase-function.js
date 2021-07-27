@@ -19,6 +19,9 @@ export const loginUser = (emailLogin, passwordLogin) => {
     .then((userCredential) => {
       console.log('sign in');
       console.log(userCredential);
+      localStorage.setItem('email', userCredential.user.email);
+      // localStorage.removeItem('email');
+      // console.log(userCredential.user.email);
       window.location.hash = '#/application';
     }).catch((err) => {
       console.log(err);
@@ -69,23 +72,3 @@ export const savePost = (post) => {
 
 /* **********Función para obtener los posts********** */
 export const getPost = () => dataBase.collection('posts').get();
-
-/* **********Función para mostrar todos los posts********** */
-export const showAllPosts = async (seccion) => {
-  const posts = await getPost();
-  posts.forEach((doc) => { // recorre todos los posts obtenidos
-    const nuevaseccion = document.createElement('section');
-    nuevaseccion.innerHTML += `
-    <section class='postTemplate'>
-    <p class='userNameTag'>UserName</p>
-    <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
-     <section class='icons sectionIcons'>
-      <i class="fas fa-edit btnEdit"></i>
-      <i class="fas fa-trash btnDelete"></i>
-      <i class="fas fa-comment-alt"></i>
-      <i class="fas fa-heart"></i>
-     </section>
-    </section>`;
-    seccion.appendChild(nuevaseccion);
-  });
-};
