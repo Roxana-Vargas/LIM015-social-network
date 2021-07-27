@@ -34,22 +34,22 @@ export const Nav = () => {
     event.preventDefault();
     logOut();
     window.location.hash = '#/login';
+    localStorage.clear();
   });
 
   return containerNav;
 };
 
-const emailUser = localStorage.getItem('email');
-console.log(emailUser);
-
 /* **********Función para mostrar todos los posts********** */
 const showAllPosts = async (seccion) => {
   const posts = await getPost();
+  // const emailUser = localStorage.getItem('email');
+  // console.log(emailUser);
   posts.forEach((doc) => { // recorre todos los posts obtenidos
     const nuevaseccion = document.createElement('section');
     nuevaseccion.innerHTML += `
     <section class='postTemplate'>
-    <p class='userNameTag'>${emailUser}</p>
+    <p class='userNameTag'>${doc.data().name}</p>
     <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
     <section class='icons sectionIcons'>
       <i class="fas fa-edit btnEdit"></i>
@@ -107,7 +107,8 @@ export const appSection = () => {
   btnPost.addEventListener('click', async (event) => { // pasa el evento al botón para publicar
     event.preventDefault();
     const post = containerAll.querySelector('#postTextarea').value; // al dar click, captura el valor ingresado en el textarea
-    savePost(post);
+    const emailUser = localStorage.getItem('email');
+    savePost(emailUser, post);
     containerAll.querySelector('#postTextarea').value = ''; // cosa rara
     // mostrar();
     postSection.innerHTML = '';
