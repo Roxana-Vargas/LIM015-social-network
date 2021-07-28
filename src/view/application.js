@@ -43,17 +43,21 @@ export const Nav = () => {
 /* **********Función para mostrar todos los posts********** */
 const showAllPosts = async (seccion) => {
   const posts = await getPost();
-  // const emailUser = localStorage.getItem('email');
+  const emailUser = localStorage.getItem('email1');
   // console.log(emailUser);
   posts.forEach((doc) => { // recorre todos los posts obtenidos
     const nuevaseccion = document.createElement('section');
+    const postId = doc.data();
+    postId.id = doc.id;
     nuevaseccion.innerHTML += `
     <section class='postTemplate'>
     <p class='userNameTag'>${doc.data().name}</p>
     <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
-    <section class='icons sectionIcons'>
+    <section id="iconos" class="icons sectionIcons ${doc.data().name === emailUser ? 'show' : 'hidden'}">
       <i class="fas fa-edit btnEdit"></i>
-      <i class="fas fa-trash btnDelete"></i>
+      <i class="fas fa-trash btnDelete" data-id="${postId.id}"></i>      
+    </section>
+    <section class='icons sectionIcons '>
       <i class="fas fa-comment-alt"></i>
       <i class="fas fa-heart"></i>
     </section>
@@ -114,5 +118,6 @@ export const appSection = () => {
     postSection.innerHTML = '';
     showAllPosts(postSection);
   });
+
   return containerAll;
 };

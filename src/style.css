@@ -281,3 +281,7 @@ a {
     background: #308197;
 }
 
+.hidden{
+    display: none;
+}
+
