@@ -20,8 +20,6 @@ export const loginUser = (emailLogin, passwordLogin) => {
       console.log('sign in');
       console.log(userCredential);
       localStorage.setItem('email', userCredential.user.email);
-      // localStorage.removeItem('email');
-      // console.log(userCredential.user.email);
       window.location.hash = '#/application';
     }).catch((err) => {
       console.log(err);

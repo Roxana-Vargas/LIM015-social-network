@@ -37,6 +37,7 @@ export const loginSection = () => {
     const emailLogin = containerAll.querySelector('#emailLogin').value;
     const passwordLogin = containerAll.querySelector('#passwordLogin').value;
     loginUser(emailLogin, passwordLogin);
+    localStorage.setItem('email1', emailLogin);
   });
 
   const google = containerAll.querySelector('.google');
