@@ -2,6 +2,7 @@ import {
   logOut,
   savePost,
   getPost,
+  deletePost,
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
@@ -41,28 +42,28 @@ export const Nav = () => {
 };
 
 /* **********Función para mostrar todos los posts********** */
-const showAllPosts = async (seccion) => {
+const showAllPosts = async (section) => {
   const posts = await getPost();
   const emailUser = localStorage.getItem('email1');
   // console.log(emailUser);
   posts.forEach((doc) => { // recorre todos los posts obtenidos
-    const nuevaseccion = document.createElement('section');
+    const newSection = document.createElement('section');
     const postId = doc.data();
     postId.id = doc.id;
-    nuevaseccion.innerHTML += `
+    newSection.innerHTML += `
     <section class='postTemplate'>
     <p class='userNameTag'>${doc.data().name}</p>
     <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
     <section id="iconos" class="icons sectionIcons ${doc.data().name === emailUser ? 'show' : 'hidden'}">
       <i class="fas fa-edit btnEdit"></i>
-      <i class="fas fa-trash btnDelete" data-id="${postId.id}"></i>      
+      <i class="fas fa-trash btnDelete" data-id="${postId.id}"></i>
     </section>
     <section class='icons sectionIcons '>
       <i class="fas fa-comment-alt"></i>
       <i class="fas fa-heart"></i>
     </section>
     </section>`;
-    seccion.appendChild(nuevaseccion);
+    section.appendChild(newSection);
   });
 };
 
@@ -85,26 +86,15 @@ export const appSection = () => {
   const btnPost = containerAll.querySelector('#btnPost'); // Captura el botón para publicar
   const postSection = containerAll.querySelector('#containerPosts'); // Captura la sección donde se va a publicar
 
-  // Llamar funcion para mostrar
-  // const mostrar = async () => {
-  //   const posts = await getPost();
-  //   postSection.innerHTML = '';
-  //   posts.forEach((doc) => { // recorre todos los posts obtenidos
-  //     const postsData = doc.data();
-  //     postsData.id = doc.id;
-  //     postSection.innerHTML += `
-  //     <section class='postTemplate'>
-  //     <p class='userNameTag'>UserName</p>
-  //     <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
-  //      <section class='icons sectionIcons'>
-  //       <i class="fas fa-edit btnEdit" data-id="${postsData.id}"></i>
-  //       <i class="fas fa-trash btnDelete" data-id="${postsData.id}"></i>
-  //       <i class="fas fa-comment-alt"></i>
-  //       <i class="fas fa-heart"></i>
-  //      </section>
-  //     </section>`;
-  //   });
-  // };
+  // Funcion Delete post
+  const btnDelete = document.querySelector('#root');
+  btnDelete.addEventListener('click', async (e) => {
+    if (e.target.className === 'fas fa-trash btnDelete') {
+      await deletePost(e.target.dataset.id);
+      postSection.innerHTML = '';
+      showAllPosts(postSection);
+    }
+  });
 
   showAllPosts(postSection);
   // llama a la funcion para guardar post y le pasa como argumento el post
@@ -118,6 +108,5 @@ export const appSection = () => {
     postSection.innerHTML = '';
     showAllPosts(postSection);
   });
-
   return containerAll;
 };

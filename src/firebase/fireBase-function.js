@@ -71,3 +71,6 @@ export const savePost = (name, post) => {
 
 /* **********Función para obtener los posts********** */
 export const getPost = () => dataBase.collection('posts').get();
+
+/* **********Función para eliminar los posts********** */
+export const deletePost = (id) => dataBase.collection('posts').doc(id).delete();
