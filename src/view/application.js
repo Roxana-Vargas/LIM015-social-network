@@ -3,6 +3,8 @@ import {
   savePost,
   getPost,
   deletePost,
+  getPostForEdit,
+  updatePost,
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
@@ -50,12 +52,14 @@ const showAllPosts = async (section) => {
     const newSection = document.createElement('section');
     const postId = doc.data();
     postId.id = doc.id;
+    console.log(postId.id);
     newSection.innerHTML += `
     <section class='postTemplate'>
     <p class='userNameTag'>${doc.data().name}</p>
-    <textarea readonly='readonly' class='areaPost'>${doc.data().post}</textarea>
+    <textarea readonly class='areaPost' id='${postId.id}'>${doc.data().post}</textarea>
     <section id="iconos" class="icons sectionIcons ${doc.data().name === emailUser ? 'show' : 'hidden'}">
-      <i class="fas fa-edit btnEdit"></i>
+      <i class="fas fa-check" data-id="${postId.id}" id='${postId.id}'></i>
+      <i class="fas fa-edit btnEdit" data-id="${postId.id}"></i>
       <i class="fas fa-trash btnDelete" data-id="${postId.id}"></i>
     </section>
     <section class='icons sectionIcons '>
@@ -64,6 +68,7 @@ const showAllPosts = async (section) => {
     </section>
     </section>`;
     section.appendChild(newSection);
+    console.log(section);
   });
 };
 
@@ -80,13 +85,11 @@ export const appSection = () => {
     <section id="containerPosts">
     </section>
     `;
-
-  // const deletePost = (id) => dataBase.collection('posts').doc(id).delete();
   containerAll.appendChild(containerApp);
   const btnPost = containerAll.querySelector('#btnPost'); // Captura el botón para publicar
   const postSection = containerAll.querySelector('#containerPosts'); // Captura la sección donde se va a publicar
 
-  // Funcion Delete post
+  /* **********Función para eliminar posts********** */
   const btnDelete = document.querySelector('#root');
   btnDelete.addEventListener('click', async (e) => {
     if (e.target.className === 'fas fa-trash btnDelete') {
@@ -96,15 +99,63 @@ export const appSection = () => {
     }
   });
 
+  /* **********Función para editar post********** */
+  const btnEdit = document.querySelector('#root');
+  let idPost = '';
+  btnEdit.addEventListener('click', async (e) => {
+    if (e.target.className === 'fas fa-edit btnEdit') {
+      const postForEdit = await getPostForEdit(e.target.dataset.id);
+      idPost = postForEdit.id;
+      const container = document.querySelector('#root');
+      const areaPost = container.querySelectorAll('.areaPost');
+      areaPost.forEach((element) => {
+        const areaPostId = element.id;
+        if (areaPostId === idPost) {
+          element.removeAttribute('readonly');
+          element.classList.add('focus');
+        }
+      });
+      const btnsCheck = container.querySelectorAll('.fa-check');
+      btnsCheck.forEach((el) => {
+        const checkId = el.id;
+        if (checkId === idPost) {
+          el.classList.add('visibility');
+        }
+      });
+      btnsCheck.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const containerEdited = document.querySelector('#root');
+          const postEdited = containerEdited.querySelectorAll('.areaPost');
+          postEdited.forEach((el) => {
+            const postModified = el.id;
+            if (postModified === idPost) {
+              const newValuePost = el.value;
+              const post = newValuePost;
+              updatePost(idPost, {
+                post,
+              });
+            }
+            el.classList.remove('focus');
+            el.setAttribute('readonly', 'readonly');
+            const hideCheck = containerEdited.querySelectorAll('.fa-check');
+            hideCheck.forEach((btnCheck) => {
+              btnCheck.classList.remove('visibility');
+            });
+          });
+        });
+      });
+    }
+  });
+
   showAllPosts(postSection);
-  // llama a la funcion para guardar post y le pasa como argumento el post
+
+  /* **********Función para guardar post y publicar********** */
   btnPost.addEventListener('click', async (event) => { // pasa el evento al botón para publicar
     event.preventDefault();
     const post = containerAll.querySelector('#postTextarea').value; // al dar click, captura el valor ingresado en el textarea
     const emailUser = localStorage.getItem('email');
     savePost(emailUser, post);
     containerAll.querySelector('#postTextarea').value = ''; // cosa rara
-    // mostrar();
     postSection.innerHTML = '';
     showAllPosts(postSection);
   });
