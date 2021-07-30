@@ -74,3 +74,9 @@ export const getPost = () => dataBase.collection('posts').get();
 
 /* **********Función para eliminar los posts********** */
 export const deletePost = (id) => dataBase.collection('posts').doc(id).delete();
+
+// funcion para obtener la publicacion que queremos editar
+export const getPostForEdit = (id) => dataBase.collection('posts').doc(id).get(); // sólo va a obtener el documento con el id que le pasemos
+
+// funcion para actualizar publicaciones
+export const updatePost = (id, updatedPost) => dataBase.collection('posts').doc(id).update(updatedPost); // actualizar el post por su id y con el nuevo campo ingresado

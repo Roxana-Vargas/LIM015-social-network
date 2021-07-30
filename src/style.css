@@ -285,3 +285,14 @@ a {
     display: none;
 }
 
+.focus {
+    border-style: solid;
+    border-color: #FB991C;
+}
+
+.fa-check{
+visibility: hidden;
+}
+.visibility {
+visibility: visible;
+}
