@@ -296,3 +296,7 @@ visibility: hidden;
 .visibility {
 visibility: visible;
 }
+
+#heart{
+    display: none;
+}

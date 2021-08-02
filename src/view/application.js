@@ -5,6 +5,7 @@ import {
   deletePost,
   getPostForEdit,
   updatePost,
+  updatelike,
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
@@ -64,13 +65,85 @@ const showAllPosts = async (section) => {
     </section>
     <section class='icons sectionIcons '>
       <i class="fas fa-comment-alt"></i>
-      <i class="fas fa-heart"></i>
+      <label for = "likeheart">
+      <input id="heart" type="checkbox"> 
+      <i class="fas fa-heart" data-id="${postId.id}"><span>${doc.data().likePost}</span></i>
+      </label>
     </section>
     </section>`;
     section.appendChild(newSection);
     console.log(section);
   });
 };
+
+/* **********Función like********** */
+
+// const btnlike = document.querySelector('#root');
+// // let likeCount = 0;
+// btnlike.addEventListener('click', (e) => {
+//   if (e.target.className === 'fas fa-heart') {
+//     // likeCount ++;
+//     const increment = firebase.firestore.FieldValue.increment(1);
+//     const containerd = document.querySelector('#root');
+//     const uno = containerd.querySelector('#containerPosts');
+//     console.log(increment);
+//     console.log(e.target.dataset.id);
+//     console.log(e.target.id);
+//     updatelike(e.target.dataset.id, increment);
+//     console.log('hola');
+//     uno.innerHTML = '';
+//     showAllPosts(uno);
+//   }
+//   // console.log(likeCount);
+// });
+
+/* **********Función para editar post********** */
+const btnEdit = document.querySelector('#root');
+let idPost = '';
+btnEdit.addEventListener('click', async (e) => {
+  if (e.target.className === 'fas fa-edit btnEdit') {
+    const postForEdit = await getPostForEdit(e.target.dataset.id);
+    idPost = postForEdit.id;
+    const container = document.querySelector('#root');
+    const areaPost = container.querySelectorAll('.areaPost');
+    areaPost.forEach((element) => {
+      const areaPostId = element.id;
+      if (areaPostId === idPost) {
+        element.removeAttribute('readonly');
+        element.classList.add('focus');
+      }
+    });
+    const btnsCheck = container.querySelectorAll('.fa-check');
+    btnsCheck.forEach((el) => {
+      const checkId = el.id;
+      if (checkId === idPost) {
+        el.classList.add('visibility');
+      }
+    });
+    btnsCheck.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const containerEdited = document.querySelector('#root');
+        const postEdited = containerEdited.querySelectorAll('.areaPost');
+        postEdited.forEach((el) => {
+          const postModified = el.id;
+          if (postModified === idPost) {
+            const newValuePost = el.value;
+            const post = newValuePost;
+            updatePost(idPost, {
+              post,
+            });
+          }
+          el.classList.remove('focus');
+          el.setAttribute('readonly', 'readonly');
+          const hideCheck = containerEdited.querySelectorAll('.fa-check');
+          hideCheck.forEach((btnCheck) => {
+            btnCheck.classList.remove('visibility');
+          });
+        });
+      });
+    });
+  }
+});
 
 export const appSection = () => {
   const containerAll = document.createElement('section');
@@ -99,54 +172,6 @@ export const appSection = () => {
     }
   });
 
-  /* **********Función para editar post********** */
-  const btnEdit = document.querySelector('#root');
-  let idPost = '';
-  btnEdit.addEventListener('click', async (e) => {
-    if (e.target.className === 'fas fa-edit btnEdit') {
-      const postForEdit = await getPostForEdit(e.target.dataset.id);
-      idPost = postForEdit.id;
-      const container = document.querySelector('#root');
-      const areaPost = container.querySelectorAll('.areaPost');
-      areaPost.forEach((element) => {
-        const areaPostId = element.id;
-        if (areaPostId === idPost) {
-          element.removeAttribute('readonly');
-          element.classList.add('focus');
-        }
-      });
-      const btnsCheck = container.querySelectorAll('.fa-check');
-      btnsCheck.forEach((el) => {
-        const checkId = el.id;
-        if (checkId === idPost) {
-          el.classList.add('visibility');
-        }
-      });
-      btnsCheck.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const containerEdited = document.querySelector('#root');
-          const postEdited = containerEdited.querySelectorAll('.areaPost');
-          postEdited.forEach((el) => {
-            const postModified = el.id;
-            if (postModified === idPost) {
-              const newValuePost = el.value;
-              const post = newValuePost;
-              updatePost(idPost, {
-                post,
-              });
-            }
-            el.classList.remove('focus');
-            el.setAttribute('readonly', 'readonly');
-            const hideCheck = containerEdited.querySelectorAll('.fa-check');
-            hideCheck.forEach((btnCheck) => {
-              btnCheck.classList.remove('visibility');
-            });
-          });
-        });
-      });
-    }
-  });
-
   showAllPosts(postSection);
 
   /* **********Función para guardar post y publicar********** */
@@ -161,3 +186,17 @@ export const appSection = () => {
   });
   return containerAll;
 };
+
+/* **********Función para dar like********** */
+
+const btnlike = document.querySelector('#root');
+btnlike.addEventListener('click', async (e) => {
+  if (e.target.className === 'fas fa-heart') {
+    const increment = firebase.firestore.FieldValue.increment(1);
+    await updatelike(e.target.dataset.id, increment);
+    const containerAll = document.querySelector('#root');
+    const postSection = containerAll.querySelector('#containerPosts');
+    postSection.innerHTML = '';
+    showAllPosts(postSection);
+  }
+});

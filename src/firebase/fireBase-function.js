@@ -66,6 +66,7 @@ export const savePost = (name, post) => {
   dataBase.collection('posts').doc().set({ // guarda datos en una colección que se llame "posts", y dentro de este documento vamos a guardar los datos que en este caso será el post
     name,
     post,
+    likePost: 0,
   });
 };
 
@@ -80,3 +81,5 @@ export const getPostForEdit = (id) => dataBase.collection('posts').doc(id).get()
 
 // funcion para actualizar publicaciones
 export const updatePost = (id, updatedPost) => dataBase.collection('posts').doc(id).update(updatedPost); // actualizar el post por su id y con el nuevo campo ingresado
+
+export const updatelike = (id, updateLike) => dataBase.collection('posts').doc(id).update({ likePost: updateLike });
