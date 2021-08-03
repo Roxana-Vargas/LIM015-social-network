@@ -76,27 +76,6 @@ const showAllPosts = async (section) => {
   });
 };
 
-/* **********Función like********** */
-
-// const btnlike = document.querySelector('#root');
-// // let likeCount = 0;
-// btnlike.addEventListener('click', (e) => {
-//   if (e.target.className === 'fas fa-heart') {
-//     // likeCount ++;
-//     const increment = firebase.firestore.FieldValue.increment(1);
-//     const containerd = document.querySelector('#root');
-//     const uno = containerd.querySelector('#containerPosts');
-//     console.log(increment);
-//     console.log(e.target.dataset.id);
-//     console.log(e.target.id);
-//     updatelike(e.target.dataset.id, increment);
-//     console.log('hola');
-//     uno.innerHTML = '';
-//     showAllPosts(uno);
-//   }
-//   // console.log(likeCount);
-// });
-
 /* **********Función para editar post********** */
 const btnEdit = document.querySelector('#root');
 let idPost = '';
@@ -191,12 +170,28 @@ export const appSection = () => {
 
 const btnlike = document.querySelector('#root');
 btnlike.addEventListener('click', async (e) => {
+  const userUid = localStorage.getItem('uid');
   if (e.target.className === 'fas fa-heart') {
-    const increment = firebase.firestore.FieldValue.increment(1);
-    await updatelike(e.target.dataset.id, increment);
-    const containerAll = document.querySelector('#root');
-    const postSection = containerAll.querySelector('#containerPosts');
-    postSection.innerHTML = '';
-    showAllPosts(postSection);
+    console.log(e.target.dataset.id);
+    const postsdos = await getPost();
+    postsdos.forEach(async (doc) => {
+      const array = doc.data().array;
+      const postId = doc.data();
+      postId.id = doc.id;
+      console.log(postId.id);
+      if (postId.id === e.target.dataset.id) {
+        if (array.includes(userUid)) {
+          const decrement = firebase.firestore.FieldValue.increment(0);
+          await updatelike(doc.data().array, e.target.dataset.id, decrement, userUid);
+        } else {
+          const increment = firebase.firestore.FieldValue.increment(1);
+          await updatelike(doc.data().array, e.target.dataset.id, increment, userUid);
+          const containerAll = document.querySelector('#root');
+          const postSection2 = containerAll.querySelector('#containerPosts');
+          postSection2.innerHTML = '';
+          showAllPosts(postSection2);
+        }
+      }
+    });
   }
 });

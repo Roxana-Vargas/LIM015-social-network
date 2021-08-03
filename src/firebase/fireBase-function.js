@@ -20,6 +20,7 @@ export const loginUser = (emailLogin, passwordLogin) => {
       console.log('sign in');
       console.log(userCredential);
       localStorage.setItem('email', userCredential.user.email);
+      localStorage.setItem('uid', userCredential.user.uid);
       window.location.hash = '#/application';
     }).catch((err) => {
       console.log(err);
@@ -67,6 +68,7 @@ export const savePost = (name, post) => {
     name,
     post,
     likePost: 0,
+    array: [],
   });
 };
 
@@ -82,4 +84,4 @@ export const getPostForEdit = (id) => dataBase.collection('posts').doc(id).get()
 // funcion para actualizar publicaciones
 export const updatePost = (id, updatedPost) => dataBase.collection('posts').doc(id).update(updatedPost); // actualizar el post por su id y con el nuevo campo ingresado
 
-export const updatelike = (id, updateLike) => dataBase.collection('posts').doc(id).update({ likePost: updateLike });
+export const updatelike = (doc, id, updateLike, uid) => dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: doc.concat(uid) });
