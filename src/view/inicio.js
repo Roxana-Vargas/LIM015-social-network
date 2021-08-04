@@ -26,7 +26,7 @@ export const loginSection = () => {
     </form>
     </section>
     <section class="linkRegister">
-      <p class="text">¿No tienes cuenta?</p><a href="#/register" id="linkRegister" class="link">Registrate aquí</a>
+      <p class="text">¿No tienes cuenta?  <span><a href="#/register" id="linkRegister" class="link">Registrate aquí</a></span></p>
     </section>
   `;
   containerAll.appendChild(containerLogin);

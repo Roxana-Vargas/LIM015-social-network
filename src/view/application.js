@@ -53,11 +53,11 @@ const showAllPosts = async (section) => {
     const newSection = document.createElement('section');
     const postId = doc.data();
     postId.id = doc.id;
-    console.log(postId.id);
     newSection.innerHTML += `
     <section class='postTemplate'>
     <p class='userNameTag'>${doc.data().name}</p>
     <textarea readonly class='areaPost' id='${postId.id}'>${doc.data().post}</textarea>
+    <section class="sectionIcons">
     <section id="iconos" class="icons sectionIcons ${doc.data().name === emailUser ? 'show' : 'hidden'}">
       <i class="fas fa-check" data-id="${postId.id}" id='${postId.id}'></i>
       <i class="fas fa-edit btnEdit" data-id="${postId.id}"></i>
@@ -70,9 +70,10 @@ const showAllPosts = async (section) => {
       <i class="fas fa-heart" data-id="${postId.id}"><span>${doc.data().likePost}</span></i>
       </label>
     </section>
-    </section>`;
+    </section>
+    </section>
+      `;
     section.appendChild(newSection);
-    console.log(section);
   });
 };
 
@@ -129,11 +130,21 @@ export const appSection = () => {
   const containerApp = document.createElement('section');
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
-    <section class="makePost">
+      <section class="makePost">
       <input type="text" class="inputType" id="searchInput" placeholder="Buscar">
       <textarea class="inputType" id="postTextarea" placeholder="Comparte con la comunidad"></textarea>
       <button class="button" id="btnPost">Publicar</button>
     </section>
+    <section>
+      <!-- The Modal -->
+        <div id="myModal" class="modal" style="display: none;">
+        <!-- Modal content -->
+        <div class="modal-content">
+        <p>¿Estás seguro que deses eliminar esta publicación?</p>
+        <button id="btnAccept" class = "button">Aceptar</button> <button id="btnCancel" class = "button">Cancelar</button>
+        </div>
+        </div>
+      </section>
     <section id="containerPosts">
     </section>
     `;
@@ -145,14 +156,24 @@ export const appSection = () => {
   const btnDelete = document.querySelector('#root');
   btnDelete.addEventListener('click', async (e) => {
     if (e.target.className === 'fas fa-trash btnDelete') {
-      await deletePost(e.target.dataset.id);
-      postSection.innerHTML = '';
-      showAllPosts(postSection);
+      const modal = document.querySelector('#root');
+      modal.querySelector('#myModal').style.display = 'block';
+      const btnAccept = modal.querySelector('#btnAccept');
+      btnAccept.addEventListener('click', async () => {
+        modal.querySelector('#myModal').style.display = 'none';
+        await deletePost(e.target.dataset.id);
+        postSection.innerHTML = '';
+        showAllPosts(postSection);
+        console.log(postSection);
+      });
+      const btnCancel = modal.querySelector('#btnCancel');
+      btnCancel.addEventListener('click', () => {
+        console.log('hola');
+        modal.querySelector('#myModal').style.display = 'none';
+      });
     }
   });
-
   showAllPosts(postSection);
-
   /* **********Función para guardar post y publicar********** */
   btnPost.addEventListener('click', async (event) => { // pasa el evento al botón para publicar
     event.preventDefault();

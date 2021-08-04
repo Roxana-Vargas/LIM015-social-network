@@ -10,7 +10,7 @@ export const registerSection = () => {
   </section>
   <form class="formRegister">
     <p class="text">Regístrate</p>
-    <input type="text" class="inputType"  id="nameUser" placeholder="Nombre"/><br>
+    <input type="text" class="inputType"  id="nameUser" placeholder="Nombre"/></span><br>
     <input type="email" class="inputType"  id="emailRegister" placeholder="Email" autocomplete="on"/><br>
     <input type="password" class="inputType" id="passwordRegister" placeholder="Contraseña ...." autocomplete="on"/><br>
     <input type="password" class="inputType" id="passwordConfirmRegister" placeholder="Confirma tu contraseña ...." autocomplete="on"/><br>
