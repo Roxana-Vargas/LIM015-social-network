@@ -91,7 +91,7 @@ a {
     flex-flow: column wrap;
     justify-content: flex-end;
     margin: 0;
-    min-height: 85vh;
+    min-height: 75vh;
 }
 
 #welcome p {
@@ -187,9 +187,6 @@ a {
     display: none;
 }
 
-.fa-bars option[disabled]{
-    display: none;
-}
 .fa-bars{
     display: flex;
     color: #fff;
@@ -254,7 +251,7 @@ a {
 
 .postTextarea .inputType{
     background: #F3F3F3;
-    
+
 }
 #postTextarea {
 height: 100px;

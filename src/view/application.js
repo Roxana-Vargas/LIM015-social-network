@@ -9,10 +9,11 @@ import {
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
+  const menuBurguer = document.getElementById('menuBurguer');
+  menuBurguer.classList = 'fas fa-bars';
   const containerNav = document.createElement('section');
   const container = document.createElement('nav');
-  // containerNav.classList = 'disable';
-  const menuBurguer = document.getElementById('menuBurguer');
+  containerNav.classList = 'disable';
 
   // funcion toggle ícono de menu
   menuBurguer.addEventListener('click', () => {
@@ -33,7 +34,6 @@ export const Nav = () => {
 
   // Llamar funcion para desloguear
   linklogOut.addEventListener('click', (event) => {
-    menuBurguer.classList.toggle('fa-times');
     menuBurguer.classList = ('disable');
     event.preventDefault();
     logOut();
@@ -66,7 +66,7 @@ const showAllPosts = async (section) => {
     <section class='icons sectionIcons '>
       <i class="fas fa-comment-alt"></i>
       <label for = "likeheart">
-      <input id="heart" type="checkbox"> 
+      <input id="heart" type="checkbox">
       <i class="fas fa-heart" data-id="${postId.id}"><span>${doc.data().likePost}</span></i>
       </label>
     </section>
