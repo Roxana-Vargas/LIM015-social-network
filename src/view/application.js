@@ -6,6 +6,7 @@ import {
   getPostForEdit,
   updatePost,
   updatelike,
+  updateDislike,
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
@@ -133,6 +134,7 @@ export const appSection = () => {
       <section class="makePost">
       <input type="text" class="inputType" id="searchInput" placeholder="Buscar">
       <textarea class="inputType" id="postTextarea" placeholder="Comparte con la comunidad"></textarea>
+      <span id="errorPost" class="error"></span>
       <button class="button" id="btnPost">Publicar</button>
     </section>
     <section>
@@ -177,12 +179,19 @@ export const appSection = () => {
   /* **********Función para guardar post y publicar********** */
   btnPost.addEventListener('click', async (event) => { // pasa el evento al botón para publicar
     event.preventDefault();
+    const errorPost = containerAll.querySelector('#errorPost');
     const post = containerAll.querySelector('#postTextarea').value; // al dar click, captura el valor ingresado en el textarea
     const emailUser = localStorage.getItem('email');
-    savePost(emailUser, post);
-    containerAll.querySelector('#postTextarea').value = ''; // cosa rara
-    postSection.innerHTML = '';
-    showAllPosts(postSection);
+    if (post === '') {
+      console.log('vacio');
+      errorPost.innerHTML = 'Publicacion vacia';
+    } else {
+      savePost(emailUser, post);
+      containerAll.querySelector('#postTextarea').value = ''; // cosa rara
+      errorPost.innerHTML = '';
+      postSection.innerHTML = '';
+      showAllPosts(postSection);
+    }
   });
   return containerAll;
 };
@@ -193,20 +202,25 @@ const btnlike = document.querySelector('#root');
 btnlike.addEventListener('click', async (e) => {
   const userUid = localStorage.getItem('uid');
   if (e.target.className === 'fas fa-heart') {
-    console.log(e.target.dataset.id);
     const postsdos = await getPost();
     postsdos.forEach(async (doc) => {
       const array = doc.data().array;
       const postId = doc.data();
       postId.id = doc.id;
-      console.log(postId.id);
       if (postId.id === e.target.dataset.id) {
         if (array.includes(userUid)) {
-          const decrement = firebase.firestore.FieldValue.increment(0);
-          await updatelike(doc.data().array, e.target.dataset.id, decrement, userUid);
+          // await updatelike(doc.data().array, e.target.dataset.id, decrement, userUid);
+          const index1 = array.indexOf(userUid);
+          console.log(index1);
+          const decrement = firebase.firestore.FieldValue.increment(-1);
+          await updateDislike(doc.data().array, e.target.dataset.id, decrement, index1);
+          const containerAll = document.querySelector('#root');
+          const postSection2 = containerAll.querySelector('#containerPosts');
+          postSection2.innerHTML = '';
+          showAllPosts(postSection2);
         } else {
           const increment = firebase.firestore.FieldValue.increment(1);
-          await updatelike(doc.data().array, e.target.dataset.id, increment, userUid);
+          await updatelike(array, e.target.dataset.id, increment, userUid);
           const containerAll = document.querySelector('#root');
           const postSection2 = containerAll.querySelector('#containerPosts');
           postSection2.innerHTML = '';

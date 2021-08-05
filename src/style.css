@@ -354,6 +354,13 @@ visibility: visible;
     font-weight: bold;
 }
 
+/****************** mensajes de error ****************/
+.error {
+    color: red;
+    margin: 0;
+    font-size: 12px;
+}
+
 /* .iconsPost {
     cursor: ;
 } */

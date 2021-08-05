@@ -14,8 +14,11 @@ export const loginSection = () => {
     </section>
     <form class="formLogin">
       <p class="text">Iniciar sesión</p>
-      <input type="email"  class="inputType" id="emailLogin" placeholder="Email..."/><br>
-      <input type="password"  class="inputType" id="passwordLogin" placeholder="Password..." autocomplete="on"/><br>
+      <input type="email"  class="inputType" id="emailLogin" placeholder="Email..."/>
+      <span id="errorEmailLogin" class="error"></span><br>
+      <input type="password"  class="inputType" id="passwordLogin" placeholder="Password..." autocomplete="on"/>
+      <span id="errorpasswordLogin" class="error"></span><br>
+      <span id="errorAllLogin" class="error"></span><br>
       <section class="buttonSection">
         <button  class="button" id="btnLogin">Login</button>
         <a href="" class="link">¿Olvidaste tu contraseña?</a>
@@ -36,8 +39,31 @@ export const loginSection = () => {
     event.preventDefault();
     const emailLogin = containerAll.querySelector('#emailLogin').value;
     const passwordLogin = containerAll.querySelector('#passwordLogin').value;
-    loginUser(emailLogin, passwordLogin);
-    localStorage.setItem('email1', emailLogin);
+
+    const errorAllLogin = containerAll.querySelector('#errorAllLogin');
+    const errorEmailLogin = containerAll.querySelector('#errorEmailLogin');
+    const errorpasswordLogin = containerAll.querySelector('#errorpasswordLogin');
+    const regex = /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    const messages = [];
+
+    if (emailLogin === '' || passwordLogin === '') {
+      messages.push('Debe llenar todos los campos');
+      errorAllLogin.innerHTML = messages;
+      errorEmailLogin.innerHTML = '';
+      errorpasswordLogin.innerHTML = '';
+    } else if (passwordLogin.length < 6) {
+      messages.push('Contraseña no es valida');
+      errorpasswordLogin.innerHTML = messages;
+      errorEmailLogin.innerHTML = '';
+      errorAllLogin.innerHTML = '';
+    } else if (regex.test(emailLogin) === false) {
+      errorEmailLogin.innerHTML = 'No es un correo válido o la contraseña es incorrecta';
+      errorAllLogin.innerHTML = '';
+      errorpasswordLogin.innerHTML = '';
+    } else if (regex.test(emailLogin) === true) {
+      loginUser(emailLogin, passwordLogin);
+      localStorage.setItem('email1', emailLogin);
+    }
   });
 
   const google = containerAll.querySelector('.google');
