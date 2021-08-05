@@ -100,3 +100,17 @@ export const getPostForEdit = (id) => dataBase.collection('posts').doc(id).get()
 export const updatePost = (id, updatedPost) => dataBase.collection('posts').doc(id).update(updatedPost); // actualizar el post por su id y con el nuevo campo ingresado
 
 export const updatelike = (doc, id, updateLike, uid) => dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: doc.concat(uid) });
+
+export const updateDislike = (doc, id, updateLike, index) => dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: doc.splice(index, 1) });
+
+/*
+export const updateDislike = (doc, id, updateLike, elemento, uid) =>
+dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: doc.filter((elemento)
+  => elemento !== uid }); */
+
+/*
+export const dislikeCounter = (doc, id, value, uid) =>
+firebase.firestore().collection('post').doc(id).update({
+  likePost: firebase.firestore.FieldValue.increment(value),
+  array: doc.filter((elem) => elem.currentUserId !== uid),
+}); */
