@@ -204,23 +204,22 @@ btnlike.addEventListener('click', async (e) => {
   if (e.target.className === 'fas fa-heart') {
     const postsdos = await getPost();
     postsdos.forEach(async (doc) => {
-      const array = doc.data().array;
+      const arrayIDLikes = doc.data().array;
       const postId = doc.data();
       postId.id = doc.id;
       if (postId.id === e.target.dataset.id) {
-        if (array.includes(userUid)) {
-          // await updatelike(doc.data().array, e.target.dataset.id, decrement, userUid);
-          const index1 = array.indexOf(userUid);
-          console.log(index1);
+        if (arrayIDLikes.includes(userUid)) {
+          const index = arrayIDLikes.indexOf(userUid);
           const decrement = firebase.firestore.FieldValue.increment(-1);
-          await updateDislike(doc.data().array, e.target.dataset.id, decrement, index1);
+          arrayIDLikes.splice(index, 1);
+          await updateDislike(e.target.dataset.id, decrement, arrayIDLikes);
           const containerAll = document.querySelector('#root');
           const postSection2 = containerAll.querySelector('#containerPosts');
           postSection2.innerHTML = '';
           showAllPosts(postSection2);
         } else {
           const increment = firebase.firestore.FieldValue.increment(1);
-          await updatelike(array, e.target.dataset.id, increment, userUid);
+          await updatelike(arrayIDLikes, e.target.dataset.id, increment, userUid);
           const containerAll = document.querySelector('#root');
           const postSection2 = containerAll.querySelector('#containerPosts');
           postSection2.innerHTML = '';
