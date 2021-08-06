@@ -101,12 +101,7 @@ export const updatePost = (id, updatedPost) => dataBase.collection('posts').doc(
 
 export const updatelike = (doc, id, updateLike, uid) => dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: doc.concat(uid) });
 
-export const updateDislike = (doc, id, updateLike, index) => dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: doc.splice(index, 1) });
-
-/*
-export const updateDislike = (doc, id, updateLike, elemento, uid) =>
-dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: doc.filter((elemento)
-  => elemento !== uid }); */
+export const updateDislike = (id, updateLike, newArray) => dataBase.collection('posts').doc(id).update({ likePost: updateLike, array: newArray });
 
 /*
 export const dislikeCounter = (doc, id, value, uid) =>
