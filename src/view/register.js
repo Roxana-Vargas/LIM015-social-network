@@ -5,21 +5,35 @@ export const registerSection = () => {
   const containerRegister = document.createElement('section');
   containerRegister.className = 'registerSection';
   containerRegister.innerHTML = `
-  <section>
+  <section class="greetingsSection">
     <p class="greetings">¡Conecta con otros programadores!</p>
   </section>
+  <section class = "formulario">
   <form class="formRegister">
     <p class="text">Regístrate</p>
+    <div class="divRegister">
+    <i class="fas fa-user"></i>
     <input type="text" class="inputType"  id="nameUser" placeholder="Nombre"/><br>
+    </div>
+    <div class="divRegister">
+    <i class="fas fa-envelope"></i>
     <input type="email" class="inputType"  id="emailRegister" placeholder="user@example.com" autocomplete="on"/>
     <span id="errorEmail" class="error"></span><br>
+    </div>
+    <div class="divRegister">
+    <i class="fas fa-lock"></i>
     <input type="password" class="inputType" id="passwordRegister" placeholder="Contraseña" autocomplete="on"/>
     <span id="errorPassword" class="error"></span><br>
+    </div>
+    <div class="divRegister">
+    <i class="fas fa-lock"></i>
     <input type="password" class="inputType" id="passwordConfirmRegister" placeholder="Confirma tu contraseña" autocomplete="on"/>
     <span id="errorConfirmPassword" class="error"></span><br>
+    </div>
     <span id="errorAll" class="error"></span>
     <button type = "submit" class="button" class="inputType" id="btnRegister">Registrar</button>
   </form>
+  </section>
   `;
   // const auth = firebase.auth();
   containerAll.appendChild(containerRegister);

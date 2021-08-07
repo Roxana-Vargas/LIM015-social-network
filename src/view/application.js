@@ -132,7 +132,7 @@ export const appSection = () => {
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
       <section class="makePost">
-      <input type="text" class="inputType" id="searchInput" placeholder="Buscar">
+      <input type="text" id="search" placeholder="Buscar">
       <textarea class="inputType" id="postTextarea" placeholder="Comparte con la comunidad"></textarea>
       <span id="errorPost" class="error"></span>
       <button class="button" id="btnPost">Publicar</button>
@@ -151,6 +151,7 @@ export const appSection = () => {
     </section>
     `;
   containerAll.appendChild(containerApp);
+
   const btnPost = containerAll.querySelector('#btnPost'); // Captura el botón para publicar
   const postSection = containerAll.querySelector('#containerPosts'); // Captura la sección donde se va a publicar
 
@@ -197,6 +198,12 @@ export const appSection = () => {
 };
 
 /* **********Función para dar like********** */
+const red = () => {
+  const containerAllk = document.querySelector('#root');
+  console.log(containerAllk);
+  const corazon = containerAllk.querySelector('.fas fa-heart');
+  console.log(corazon);
+};
 
 const btnlike = document.querySelector('#root');
 btnlike.addEventListener('click', async (e) => {
@@ -219,11 +226,15 @@ btnlike.addEventListener('click', async (e) => {
           showAllPosts(postSection2);
         } else {
           const increment = firebase.firestore.FieldValue.increment(1);
+          const heart = e.target;
+          heart.classList.add('rojo');
+          console.log(heart);
           await updatelike(arrayIDLikes, e.target.dataset.id, increment, userUid);
           const containerAll = document.querySelector('#root');
           const postSection2 = containerAll.querySelector('#containerPosts');
           postSection2.innerHTML = '';
           showAllPosts(postSection2);
+          red();
         }
       }
     });

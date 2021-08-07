@@ -2,28 +2,14 @@
 const auth = firebase.auth();
 const dataBase = firebase.firestore();
 
-/* **********Función para registrar usuario********** */
-// export const registerUser = (email, password) => {
-//   auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
-//     console.log('sign in');
-//     console.log(userCredential);
-//     window.location.hash = '#/login';
-//   }).catch((err) => {
-//     console.log(err);
-//   });
-// };
-
 export const registerUser = (email, password) => {
   const error = auth.createUserWithEmailAndPassword(email, password).then((userCredential) => {
-    console.log('sign in');
     console.log(userCredential);
     window.location.hash = '#/login';
   }).catch((err) => {
-    // const messages = [];
     if (err) {
       console.log(err);
     }
-    console.log('El correo no es válido, debe tener un dominio');
   });
   return error;
 };
