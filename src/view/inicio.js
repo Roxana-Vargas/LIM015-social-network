@@ -14,9 +14,9 @@ export const loginSection = () => {
     </section>
     <form class="formLogin">
       <p class="text">Iniciar sesión</p>
-      <input type="email"  class="inputType" id="emailLogin" placeholder="Email..."/>
+      <input type="email"  class="inputType" id="emailLogin" placeholder="user@example.com"/>
       <span id="errorEmailLogin" class="error"></span><br>
-      <input type="password"  class="inputType" id="passwordLogin" placeholder="Password..." autocomplete="on"/>
+      <input type="password"  class="inputType" id="passwordLogin" placeholder="Password" autocomplete="on"/>
       <span id="errorpasswordLogin" class="error"></span><br>
       <span id="errorAllLogin" class="error"></span><br>
       <section class="buttonSection">
