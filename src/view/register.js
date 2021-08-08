@@ -1,8 +1,12 @@
 import { registerUser } from '../firebase/fireBase-function.js';
 
+const menuBurguer = document.getElementById('menuBurguer');
+menuBurguer.classList = 'disable';
+
 export const registerSection = () => {
   const containerAll = document.createElement('section');
   const containerRegister = document.createElement('section');
+  containerAll.className = 'containerAll';
   containerRegister.className = 'registerSection';
   containerRegister.innerHTML = `
   <section class="greetingsSection">
@@ -34,10 +38,14 @@ export const registerSection = () => {
     <button type = "submit" class="button" class="inputType" id="btnRegister">Registrar</button>
   </form>
   </section>
+  <section class="linkLogin">
+    <p class="text">¿Ya tienes cuenta?  <span><a href="#/login" id="linkLogin" class="link">Inicia sesión</a></span></p>
+  </section>
   `;
   // const auth = firebase.auth();
   containerAll.appendChild(containerRegister);
   const btnRegister = containerAll.querySelector('#btnRegister');
+  const linklogin = containerRegister.querySelector('.linkLogin');
 
   btnRegister.addEventListener('click', (event) => {
     // const auth = firebase.auth();
@@ -80,6 +88,10 @@ export const registerSection = () => {
     } else if (regex.test(emailRegister) === true) {
       registerUser(emailRegister, passwordRegister);
     }
+  });
+
+  linklogin.addEventListener('click', () => {
+    window.location.hash = '#/login';
   });
   return containerAll;
 };

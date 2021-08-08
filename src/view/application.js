@@ -23,12 +23,14 @@ export const Nav = () => {
   });
 
   container.innerHTML = `
-  <ul class='navApp' id='menuDropdown'>
-    <li><a href='#/application' class='linkNav'> Inicio </a></li>
-    <li><a href='#/profile' class='linkNav'> Mi Perfil </a> </li>
-    <li><a href='#/top' class='linkNav'> Top </a></li>
-    <li class= "logOut"><a href='#/login'class='linkNav' > Log Out </a></li>
-  </ul>
+  <section class='sectionNav'>
+    <ul class='navApp' id='menuDropdown'>
+      <li class='itemNav'><a href='#/application' class='linkNav'> Inicio </a></li>
+      <li class='itemNav'><a href='#/profile' class='linkNav'> Mi Perfil </a> </li>
+      <li class='itemNav'><a href='#/top' class='linkNav'> Top </a></li>
+      <li class= 'logOut itemNav'><a href='#/login'class='linkNav' > Log Out </a></li>
+    </ul>
+  </section>
     `;
   containerNav.appendChild(container);
   const linklogOut = containerNav.querySelector('.logOut');
@@ -41,7 +43,6 @@ export const Nav = () => {
     window.location.hash = '#/login';
     localStorage.clear();
   });
-
   return containerNav;
 };
 
@@ -129,8 +130,10 @@ btnEdit.addEventListener('click', async (e) => {
 export const appSection = () => {
   const containerAll = document.createElement('section');
   const containerApp = document.createElement('section');
+  // containerAll.className = 'appSection';
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
+    <section class='hijoUno'>
       <section class="makePost">
       <input type="text" id="search" placeholder="Buscar">
       <textarea class="inputType" id="postTextarea" placeholder="Comparte con la comunidad"></textarea>
@@ -138,17 +141,21 @@ export const appSection = () => {
       <button class="button" id="btnPost">Publicar</button>
     </section>
     <section>
-      <!-- The Modal -->
-        <div id="myModal" class="modal" style="display: none;">
-        <!-- Modal content -->
-        <div class="modal-content">
-        <p>¿Estás seguro que deses eliminar esta publicación?</p>
-        <button id="btnAccept" class = "button">Aceptar</button> <button id="btnCancel" class = "button">Cancelar</button>
-        </div>
-        </div>
-      </section>
+    <!-- The Modal -->
+      <div id="myModal" class="modal" style="display: none;">
+      <!-- Modal content -->
+      <div class="modal-content">
+      <p>¿Estás seguro que deses eliminar esta publicación?</p>
+      <button id="btnAccept" class = "button">Aceptar</button> <button id="btnCancel" class = "button">Cancelar</button>
+      </div>
+      </div>
+    </section>
     <section id="containerPosts">
     </section>
+    </section>
+    <section class="hijodos">
+    </section>
+
     `;
   containerAll.appendChild(containerApp);
 

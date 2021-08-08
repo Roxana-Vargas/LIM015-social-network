@@ -4,9 +4,13 @@ import {
   loginFacebook,
 } from '../firebase/fireBase-function.js';
 
+const menuBurguer = document.getElementById('menuBurguer');
+menuBurguer.classList = 'disable';
+
 export const loginSection = () => {
   const containerAll = document.createElement('section');
   const containerLogin = document.createElement('section');
+  containerAll.className = 'containerAll';
   containerLogin.className = 'loginSection';
   containerLogin.innerHTML = `
     <section>
