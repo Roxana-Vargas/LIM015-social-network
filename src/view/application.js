@@ -39,8 +39,9 @@ export const Nav = () => {
   linklogOut.addEventListener('click', (event) => {
     menuBurguer.classList = ('disable');
     event.preventDefault();
-    logOut();
-    window.location.hash = '#/login';
+    logOut().then(() => {
+      window.location.hash = '#/login';
+    });
     localStorage.clear();
   });
   return containerNav;
@@ -50,7 +51,6 @@ export const Nav = () => {
 const showAllPosts = async (section) => {
   const posts = await getPost();
   const emailUser = localStorage.getItem('email1');
-  // console.log(emailUser);
   posts.forEach((doc) => { // recorre todos los posts obtenidos
     const newSection = document.createElement('section');
     const postId = doc.data();

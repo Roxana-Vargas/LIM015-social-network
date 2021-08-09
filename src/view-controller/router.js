@@ -6,16 +6,20 @@ export const changeView = (route) => {
   switch (route) {
     case '':
     case '#':
-    case '#/': return root.appendChild(components.welcome());
-    case '#/login': return root.appendChild(components.login());
-    case '#/register': return root.appendChild(components.register());
-    // case '#/application': return root.appendChild(components.application());
+    case '#/': root.appendChild(components.welcome());
+      break;
+    case '#/login': root.appendChild(components.login());
+      break;
+    case '#/register': root.appendChild(components.register());
+      break;
     case '#/application':
       root.appendChild(components.navegación());
       root.appendChild(components.application());
       break;
-    case '#/profile': return root.appendChild(components.Profile());
+    case '#/profile': root.appendChild(components.Profile());
+      break;
     default:
-      return root.appendChild(components.NotFound());
+      root.appendChild(components.NotFound());
   }
+  return root;
 };
