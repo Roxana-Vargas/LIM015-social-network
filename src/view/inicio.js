@@ -47,7 +47,6 @@ export const loginSection = () => {
     const errorAllLogin = containerAll.querySelector('#errorAllLogin');
     const errorEmailLogin = containerAll.querySelector('#errorEmailLogin');
     const errorpasswordLogin = containerAll.querySelector('#errorpasswordLogin');
-    const regex = /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
     const messages = [];
 
     if (emailLogin === '' || passwordLogin === '') {
@@ -55,31 +54,43 @@ export const loginSection = () => {
       errorAllLogin.innerHTML = messages;
       errorEmailLogin.innerHTML = '';
       errorpasswordLogin.innerHTML = '';
-    } else if (passwordLogin.length < 6) {
-      messages.push('Contraseña no es valida');
-      errorpasswordLogin.innerHTML = messages;
-      errorEmailLogin.innerHTML = '';
-      errorAllLogin.innerHTML = '';
-    } else if (regex.test(emailLogin) === false) {
-      errorEmailLogin.innerHTML = 'No es un correo válido o la contraseña es incorrecta';
-      errorAllLogin.innerHTML = '';
-      errorpasswordLogin.innerHTML = '';
-    } else if (regex.test(emailLogin) === true) {
-      loginUser(emailLogin, passwordLogin);
+    } else {
+      loginUser(emailLogin, passwordLogin)
+        .then((userCredential) => {
+          localStorage.setItem('email', userCredential.user.email);
+          localStorage.setItem('uid', userCredential.user.uid);
+          window.location.hash = '#/application';
+        }).catch((err) => {
+          const errorCode = err.code;
+          if (errorCode === 'auth/wrong-password') {
+            errorpasswordLogin.innerHTML = 'Usuario y/o contraseña incorrecta';
+          } else if (errorCode === 'auth/invalid-email') {
+            errorEmailLogin.innerHTML = 'Correo electrónico no válido';
+          } else if (errorCode === 'auth/user-not-found') {
+            errorpasswordLogin.innerHTML = 'Usuario y/o contraseña incorrecta';
+          }
+        });
       localStorage.setItem('email1', emailLogin);
+      errorEmailLogin.innerHTML = '';
+      errorpasswordLogin.innerHTML = '';
+      errorAllLogin.innerHTML = '';
     }
   });
 
   const google = containerAll.querySelector('.google');
   google.addEventListener('click', (event) => {
     event.preventDefault();
-    loginGoogle();
+    loginGoogle().then(() => {
+      window.location.hash = '#/application';
+    });
   });
 
   const facebook = containerAll.querySelector('.facebook');
   facebook.addEventListener('click', (event) => {
     event.preventDefault();
-    loginFacebook();
+    loginFacebook().then(() => {
+      window.location.hash = '#/application';
+    });
   });
 
   return containerAll;

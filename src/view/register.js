@@ -58,20 +58,12 @@ export const registerSection = () => {
     const errorPassword = containerAll.querySelector('#errorPassword');
     const errorConfirmPassword = containerAll.querySelector('#errorConfirmPassword');
     const errorAll = containerAll.querySelector('#errorAll');
-
     const messages = [];
-    const regex = /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (emailRegister === '' || passwordRegister === '' || name === '' || passwordConfirm === '') {
       messages.push('Llenar todos los campos');
       errorAll.innerHTML = messages;
       errorPassword.innerHTML = '';
-      errorConfirmPassword.innerHTML = '';
-      errorEmail.innerHTML = '';
-    } else if (passwordRegister.length < 6) {
-      messages.push('La contraseña debe contener mínimo 6 carácteres');
-      errorPassword.innerHTML = messages;
-      errorAll.innerHTML = '';
       errorConfirmPassword.innerHTML = '';
       errorEmail.innerHTML = '';
     } else if (passwordRegister !== passwordConfirm) {
@@ -80,13 +72,24 @@ export const registerSection = () => {
       errorAll.innerHTML = '';
       errorPassword.innerHTML = '';
       errorEmail.innerHTML = '';
-    } else if (regex.test(emailRegister) === false) {
-      errorEmail.innerHTML = 'No es un correo válido';
+    } else {
+      registerUser(emailRegister, passwordRegister)
+        .then(() => {
+          window.location.hash = '#/login';
+        }).catch((err) => {
+          const errorCode = err.code;
+          if (errorCode === 'auth/email-already-in-use') {
+            errorEmail.innerHTML = 'El correo electrónico ya está registrado';
+          } else if (errorCode === 'auth/invalid-email') {
+            errorEmail.innerHTML = 'Correo electrónico no válido';
+          } else if (errorCode === 'auth/weak-password') {
+            errorPassword.innerHTML = 'La contraseña debe contener mínimo 6 carácteres';
+          }
+        });
       errorAll.innerHTML = '';
       errorPassword.innerHTML = '';
+      errorEmail.innerHTML = '';
       errorConfirmPassword.innerHTML = '';
-    } else if (regex.test(emailRegister) === true) {
-      registerUser(emailRegister, passwordRegister);
     }
   });
 
