@@ -171,7 +171,8 @@ export const appSection = () => {
       const btnAccept = modal.querySelector('#btnAccept');
       btnAccept.addEventListener('click', async () => {
         modal.querySelector('#myModal').style.display = 'none';
-        await deletePost(e.target.dataset.id);
+        const eliminar = await deletePost(e.target.dataset.id);
+        console.log(eliminar);
         postSection.innerHTML = '';
         showAllPosts(postSection);
         console.log(postSection);
@@ -224,7 +225,7 @@ btnlike.addEventListener('click', async (e) => {
       if (postId.id === e.target.dataset.id) {
         if (arrayIDLikes.includes(userUid)) {
           const index = arrayIDLikes.indexOf(userUid);
-          const decrement = firebase.firestore.FieldValue.increment(-1);
+          const decrement = -1;
           arrayIDLikes.splice(index, 1);
           await updateDislike(e.target.dataset.id, decrement, arrayIDLikes);
           const containerAll = document.querySelector('#root');
@@ -232,7 +233,8 @@ btnlike.addEventListener('click', async (e) => {
           postSection2.innerHTML = '';
           showAllPosts(postSection2);
         } else {
-          const increment = firebase.firestore.FieldValue.increment(1);
+          // const increment = firebase.firestore.FieldValue.increment(1);
+          const increment = 1;
           const heart = e.target;
           heart.classList.add('rojo');
           console.log(heart);
