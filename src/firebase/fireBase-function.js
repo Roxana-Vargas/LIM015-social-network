@@ -17,12 +17,12 @@ export const loginGoogle = () => {
   const loginwithGoogle = firebase.auth().signInWithPopup(providerGoogle);
   return loginwithGoogle;
 };
-/* **********Función iniciar sesión con facebook********** */
+/* **********Función iniciar sesión con facebook**********
 export const loginFacebook = () => {
   const providerFB = new firebase.auth.FacebookAuthProvider();
   const loginwithFB = firebase.auth().signInWithPopup(providerFB);
   return loginwithFB;
-};
+}; */
 
 /* **********Función para cerrar sesión********** */
 export const logOut = () => firebase.auth().signOut();
@@ -34,7 +34,13 @@ export const savePost = (name, post) => {
     post,
     likePost: 0,
     array: [],
-  });
+  })
+    .then(() => {
+      console.log('Document successfully written!');
+    })
+    .catch((error) => {
+      console.error('Error writing document: ', error);
+    });
 };
 
 /* **********Función para obtener los posts********** */
@@ -48,9 +54,6 @@ export const getPostForEdit = (id) => firebase.firestore().collection('posts').d
 
 // funcion para actualizar publicaciones
 export const updatePost = (id, updatedPost) => firebase.firestore().collection('posts').doc(id).update(updatedPost); // actualizar el post por su id y con el nuevo campo ingresado
-
-// export const updatelike = (doc, id, updateLike, uid) => firebase.firestore().collection('posts').
-// doc(id).update({ likePost: updateLike, array: doc.concat(uid) });
 
 export const updatelike = (doc, id, value, uid) => firebase.firestore().collection('posts').doc(id).update({ likePost: firebase.firestore.FieldValue.increment(value), array: doc.concat(uid) });
 

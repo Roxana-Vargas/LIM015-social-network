@@ -9,6 +9,7 @@ import {
   updatePost,
   updatelike,
   updateDislike,
+  // savePost,
 } from '../src/firebase/fireBase-function.js';
 
 const fixtureData = {
@@ -19,21 +20,25 @@ const fixtureData = {
           post: 'Hola Mundo',
           likePost: 1,
           array: [],
+          name: 'Rox',
         },
         abc125: {
           post: 'Hello World',
           likePost: 1,
           array: ['bet123'],
+          name: 'Bet',
         },
         abc127: {
           post: 'salut monde',
           likePost: 1,
           array: ['itzel789'],
+          name: 'Itzel',
         },
         abc129: {
           post: 'Ciao mondo',
           likePost: 0,
           array: [],
+          name: 'Vivi',
         },
       },
     },
@@ -104,9 +109,53 @@ describe('updateDislike', () => {
         updateDislike('abc127', -1, []).then(() => {
           const result = doc.data();
           expect(result.likePost).toBe(0);
-          console.log(result.likePost);
         });
       }
     });
   });
 });
+
+// describe('funcion crearPost', () => {
+//   it('Deberia agregar un post', (done) => savePost('bet', 'hola').then(() => {
+//     const callback = (posts) => {
+//       const result = posts.find((elemento) => elemento.data().post === ('hola'));
+//       expect(result.data().post).toBe('hola');
+//       done();
+//     };
+//     getPost(callback);
+//   }));
+// });
+
+// describe('crear post', () => {
+//   it('debería agregar un post', () => savePost({ name: 'Carlos' }, { post: 'hhh' }).then(() => {
+//     console.log('Document successfully written!');
+//   })
+//     .catch((error) => {
+//       console.error('Error writing document:', error);
+//     }));
+// });
+
+// describe('addPost', () => {
+//   it('Debería porder agregar un post', () => savePost('user001', 'Nuevo post')
+//     .then(() => getPost(
+//       (data) => {
+//         const result = data.find((post) => post.content === 'Nuevo post');
+//         expect(result.content).toBe('Nuevo post');
+//       }, 'posts',
+//     )));
+// });
+
+// it('should set a document', () => {
+//   const output = fixtureData.collection('posts').doc('LA').set({
+//     name: 'Jesus +',
+//     post: 'holaaaaaa',
+//   })
+//     .then(() => {
+//       console.log('Document successfully written!');
+//     })
+//     .catch((error) => {
+//       console.error('Error writing document:', error);
+//     });
+//   // [END set_document]
+//   return output;
+// });
