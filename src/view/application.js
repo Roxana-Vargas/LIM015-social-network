@@ -51,6 +51,7 @@ export const Nav = () => {
 const showAllPosts = async (section) => {
   const posts = await getPost();
   const emailUser = localStorage.getItem('email1');
+  const emailGoogle = localStorage.getItem('emailGoogle');
   posts.forEach((doc) => { // recorre todos los posts obtenidos
     const newSection = document.createElement('section');
     const postId = doc.data();
@@ -60,7 +61,7 @@ const showAllPosts = async (section) => {
     <p class='userNameTag'>${doc.data().name}</p>
     <textarea readonly class='areaPost' id='${postId.id}'>${doc.data().post}</textarea>
     <section class="sectionIcons">
-    <section id="iconos" class="icons sectionIcons ${doc.data().name === emailUser ? 'show' : 'hidden'}">
+    <section id="iconos" class="icons sectionIcons ${((doc.data().name === emailUser) || (doc.data().name === emailGoogle)) ? 'show' : 'hidden'}">
       <i class="fas fa-check" data-id="${postId.id}" id='${postId.id}'></i>
       <i class="fas fa-edit btnEdit" data-id="${postId.id}"></i>
       <i class="fas fa-trash btnDelete" data-id="${postId.id}"></i>
@@ -191,11 +192,17 @@ export const appSection = () => {
     const errorPost = containerAll.querySelector('#errorPost');
     const post = containerAll.querySelector('#postTextarea').value; // al dar click, captura el valor ingresado en el textarea
     const emailUser = localStorage.getItem('email');
+    const emailGoogle = localStorage.getItem('emailGoogle');
     if (post === '') {
-      console.log('vacio');
       errorPost.innerHTML = 'Publicacion vacia';
-    } else {
+    } else if (emailUser !== null) {
       savePost(emailUser, post);
+      containerAll.querySelector('#postTextarea').value = ''; // cosa rara
+      errorPost.innerHTML = '';
+      postSection.innerHTML = '';
+      showAllPosts(postSection);
+    } else {
+      savePost(emailGoogle, post);
       containerAll.querySelector('#postTextarea').value = ''; // cosa rara
       errorPost.innerHTML = '';
       postSection.innerHTML = '';
@@ -216,6 +223,7 @@ const red = () => {
 const btnlike = document.querySelector('#root');
 btnlike.addEventListener('click', async (e) => {
   const userUid = localStorage.getItem('uid');
+  const uidGoogle = localStorage.getItem('uidGoogle');
   if (e.target.className === 'fas fa-heart') {
     const postsdos = await getPost();
     postsdos.forEach(async (doc) => {
@@ -223,7 +231,7 @@ btnlike.addEventListener('click', async (e) => {
       const postId = doc.data();
       postId.id = doc.id;
       if (postId.id === e.target.dataset.id) {
-        if (arrayIDLikes.includes(userUid)) {
+        if (arrayIDLikes.includes(userUid || uidGoogle)) {
           const index = arrayIDLikes.indexOf(userUid);
           const decrement = -1;
           arrayIDLikes.splice(index, 1);
@@ -238,7 +246,7 @@ btnlike.addEventListener('click', async (e) => {
           const heart = e.target;
           heart.classList.add('rojo');
           console.log(heart);
-          await updatelike(arrayIDLikes, e.target.dataset.id, increment, userUid);
+          await updatelike(arrayIDLikes, e.target.dataset.id, increment, userUid || uidGoogle);
           const containerAll = document.querySelector('#root');
           const postSection2 = containerAll.querySelector('#containerPosts');
           postSection2.innerHTML = '';

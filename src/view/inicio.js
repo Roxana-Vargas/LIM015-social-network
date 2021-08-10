@@ -1,7 +1,7 @@
 import {
   loginUser,
   loginGoogle,
-  loginFacebook,
+  // loginFacebook,
 } from '../firebase/fireBase-function.js';
 
 const menuBurguer = document.getElementById('menuBurguer');
@@ -80,18 +80,23 @@ export const loginSection = () => {
   const google = containerAll.querySelector('.google');
   google.addEventListener('click', (event) => {
     event.preventDefault();
-    loginGoogle().then(() => {
+    loginGoogle().then((userCredential) => {
+      localStorage.setItem('emailGoogle', userCredential.user.email);
+      localStorage.setItem('uidGoogle', userCredential.user.uid);
+      console.log(userCredential.user);
+      console.log(userCredential.user.uid);
       window.location.hash = '#/application';
     });
   });
 
+  /*
   const facebook = containerAll.querySelector('.facebook');
   facebook.addEventListener('click', (event) => {
     event.preventDefault();
     loginFacebook().then(() => {
       window.location.hash = '#/application';
     });
-  });
+  }); */
 
   return containerAll;
 };
