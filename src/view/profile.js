@@ -1,4 +1,7 @@
+import { userValidation } from '../firebase/fireBase-function.js';
+
 export const profile = () => {
+  userValidation();
   const container = document.createElement('section');
   const informationProfile = document.createElement('section');
   const containerProfile = document.createElement('section');
@@ -31,5 +34,6 @@ export const profile = () => {
       `;
   container.appendChild(informationProfile);
   container.appendChild(containerProfile);
+  // aut();
   return container;
 };

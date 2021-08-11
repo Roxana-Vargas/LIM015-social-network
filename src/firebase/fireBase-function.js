@@ -1,8 +1,4 @@
 /* **********Llamar a la autentificación y base de datos de firebase********** */
-// const auth = firebase.auth();
-// const dataBase = firebase.firestore();
-// const providerGoogle = new firebase.auth.GoogleAuthProvider();
-// const providerFB = new firebase.auth.FacebookAuthProvider();
 
 export const registerUser = (email, password) => firebase.auth()
   .createUserWithEmailAndPassword(email, password);
@@ -58,3 +54,14 @@ export const updatePost = (id, updatedPost) => firebase.firestore().collection('
 export const updatelike = (doc, id, value, uid) => firebase.firestore().collection('posts').doc(id).update({ likePost: firebase.firestore.FieldValue.increment(value), array: doc.concat(uid) });
 
 export const updateDislike = (id, value, newArray) => firebase.firestore().collection('posts').doc(id).update({ likePost: firebase.firestore.FieldValue.increment(value), array: newArray });
+
+export const userValidation = () => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      console.log(user);
+    } else {
+      console.log('no user');
+      window.location.hash = '#/';
+    }
+  });
+};
