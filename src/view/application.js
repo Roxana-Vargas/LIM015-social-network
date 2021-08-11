@@ -7,9 +7,11 @@ import {
   updatePost,
   updatelike,
   updateDislike,
+  userValidation,
 } from '../firebase/fireBase-function.js';
 
 export const Nav = () => {
+  userValidation();
   const menuBurguer = document.getElementById('menuBurguer');
   menuBurguer.classList = 'fas fa-bars';
   const containerNav = document.createElement('section');
@@ -145,7 +147,7 @@ export const appSection = () => {
   // containerAll.className = 'appSection';
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
-    <section class='areaPost'>
+    <section class='cfr'>
       <section class="makePost">
       <input type="text" id="search" placeholder="Buscar">
       <textarea class="inputType" id="postTextarea" placeholder="Comparte con la comunidad"></textarea>
