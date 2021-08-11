@@ -15,27 +15,42 @@ export const registerSection = () => {
   <section class = "formulario">
   <form class="formRegister">
     <p class="text">Regístrate</p>
-    <div class="divRegister">
-    <i class="fas fa-user"></i>
-    <input type="text" class="inputType"  id="nameUser" placeholder="Nombre"/><br>
-    </div>
-    <div class="divRegister">
-    <i class="fas fa-envelope"></i>
-    <input type="email" class="inputType"  id="emailRegister" placeholder="user@example.com" autocomplete="on"/>
-    <span id="errorEmail" class="error"></span><br>
-    </div>
-    <div class="divRegister">
-    <i class="fas fa-lock"></i>
-    <input type="password" class="inputType" id="passwordRegister" placeholder="Contraseña" autocomplete="on"/>
-    <span id="errorPassword" class="error"></span><br>
-    </div>
-    <div class="divRegister">
-    <i class="fas fa-lock"></i>
-    <input type="password" class="inputType" id="passwordConfirmRegister" placeholder="Confirma tu contraseña" autocomplete="on"/>
-    <span id="errorConfirmPassword" class="error"></span><br>
-    </div>
-    <span id="errorAll" class="error"></span>
-    <button type = "submit" class="button" class="inputType" id="btnRegister">Registrar</button>
+      <div class="divRegister">
+        <div class="imputIcon">
+          <i class="fas fa-user"></i>
+          <input type="text" class="inputType"  id="nameUser" placeholder="Nombre"/><br>
+        </div>
+        <br>
+      </div>
+      <div class="divRegister">
+        <div class="imputIcon">
+          <i class="fas fa-envelope"></i>
+          <input type="email" class="inputType"  id="emailRegister" placeholder="user@example.com" autocomplete="on"/>
+        </div>
+        <div class="divSpan">
+          <span id="errorEmail" class="error"></span><br>
+        </div>
+      </div>
+      <div class="divRegister">
+        <div class="imputIcon">
+          <i class="fas fa-lock"></i>
+          <input type="password" class="inputType" id="passwordRegister" placeholder="Contraseña" autocomplete="on"/>
+        </div>
+        <div class="divSpan">
+          <span id="errorPassword" class="error"></span><br>
+        </div>
+      </div>
+      <div class="divRegister">
+        <div class="imputIcon">
+          <i class="fas fa-lock"></i>
+          <input type="password" class="inputType" id="passwordConfirmRegister" placeholder="Confirma tu contraseña" autocomplete="on"/>
+        </div>
+        <div class="divSpan">
+          <span id="errorConfirmPassword" class="error"></span><br>
+        </div>
+      </div>
+      <span id="errorAll" class="error"></span>
+      <button type = "submit" class="button" class="inputType" id="btnRegister">Registrar</button>
   </form>
   </section>
   <section class="linkLogin">

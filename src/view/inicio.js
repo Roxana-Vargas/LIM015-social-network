@@ -43,7 +43,6 @@ export const loginSection = () => {
     event.preventDefault();
     const emailLogin = containerAll.querySelector('#emailLogin').value;
     const passwordLogin = containerAll.querySelector('#passwordLogin').value;
-
     const errorAllLogin = containerAll.querySelector('#errorAllLogin');
     const errorEmailLogin = containerAll.querySelector('#errorEmailLogin');
     const errorpasswordLogin = containerAll.querySelector('#errorpasswordLogin');
@@ -83,8 +82,6 @@ export const loginSection = () => {
     loginGoogle().then((userCredential) => {
       localStorage.setItem('emailGoogle', userCredential.user.email);
       localStorage.setItem('uidGoogle', userCredential.user.uid);
-      console.log(userCredential.user);
-      console.log(userCredential.user.uid);
       window.location.hash = '#/application';
     });
   });

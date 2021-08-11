@@ -13,6 +13,7 @@ export const Nav = () => {
   const menuBurguer = document.getElementById('menuBurguer');
   menuBurguer.classList = 'fas fa-bars';
   const containerNav = document.createElement('section');
+  containerNav.classList = 'containerNav';
   const container = document.createElement('nav');
   containerNav.classList = 'disable';
 
@@ -47,6 +48,16 @@ export const Nav = () => {
   return containerNav;
 };
 
+/* **********Función para cambiar color a likes********** */
+const likeColor = (likesPosts) => {
+  const userUid = localStorage.getItem('uid');
+  const uidGoogle = localStorage.getItem('uidGoogle');
+  if (likesPosts.includes(userUid || uidGoogle)) {
+    return 'redHeart';
+  }
+  return '';
+};
+
 /* **********Función para mostrar todos los posts********** */
 const showAllPosts = async (section) => {
   const posts = await getPost();
@@ -70,7 +81,7 @@ const showAllPosts = async (section) => {
       <i class="fas fa-comment-alt"></i>
       <label for = "likeheart">
       <input id="heart" type="checkbox">
-      <i class="fas fa-heart" data-id="${postId.id}"><span>${doc.data().likePost}</span></i>
+      <i class="fas fa-heart ${likeColor(doc.data().array)}" data-id="${postId.id}"><span class="likeNumber">${doc.data().likePost}</span></i>
       </label>
     </section>
     </section>
@@ -134,7 +145,7 @@ export const appSection = () => {
   // containerAll.className = 'appSection';
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
-    <section class='hijoUno'>
+    <section class='areaPost'>
       <section class="makePost">
       <input type="text" id="search" placeholder="Buscar">
       <textarea class="inputType" id="postTextarea" placeholder="Comparte con la comunidad"></textarea>
@@ -154,7 +165,7 @@ export const appSection = () => {
     <section id="containerPosts">
     </section>
     </section>
-    <section class="hijodos">
+    <section class="sectioAside">
     </section>
 
     `;
@@ -162,7 +173,7 @@ export const appSection = () => {
 
   const btnPost = containerAll.querySelector('#btnPost'); // Captura el botón para publicar
   const postSection = containerAll.querySelector('#containerPosts'); // Captura la sección donde se va a publicar
-
+  showAllPosts(postSection);
   /* **********Función para eliminar posts********** */
   const btnDelete = document.querySelector('#root');
   btnDelete.addEventListener('click', async (e) => {
@@ -172,20 +183,16 @@ export const appSection = () => {
       const btnAccept = modal.querySelector('#btnAccept');
       btnAccept.addEventListener('click', async () => {
         modal.querySelector('#myModal').style.display = 'none';
-        const eliminar = await deletePost(e.target.dataset.id);
-        console.log(eliminar);
+        await deletePost(e.target.dataset.id);
         postSection.innerHTML = '';
         showAllPosts(postSection);
-        console.log(postSection);
       });
       const btnCancel = modal.querySelector('#btnCancel');
       btnCancel.addEventListener('click', () => {
-        console.log('hola');
         modal.querySelector('#myModal').style.display = 'none';
       });
     }
   });
-  showAllPosts(postSection);
   /* **********Función para guardar post y publicar********** */
   btnPost.addEventListener('click', async (event) => { // pasa el evento al botón para publicar
     event.preventDefault();
@@ -212,19 +219,11 @@ export const appSection = () => {
   return containerAll;
 };
 
-/* **********Función para dar like********** */
-const red = () => {
-  const containerAllk = document.querySelector('#root');
-  console.log(containerAllk);
-  const corazon = containerAllk.querySelector('.fas fa-heart');
-  console.log(corazon);
-};
-
 const btnlike = document.querySelector('#root');
 btnlike.addEventListener('click', async (e) => {
   const userUid = localStorage.getItem('uid');
   const uidGoogle = localStorage.getItem('uidGoogle');
-  if (e.target.className === 'fas fa-heart') {
+  if (e.target.classList.contains('fa-heart')) {
     const postsdos = await getPost();
     postsdos.forEach(async (doc) => {
       const arrayIDLikes = doc.data().array;
@@ -243,15 +242,11 @@ btnlike.addEventListener('click', async (e) => {
         } else {
           // const increment = firebase.firestore.FieldValue.increment(1);
           const increment = 1;
-          const heart = e.target;
-          heart.classList.add('rojo');
-          console.log(heart);
           await updatelike(arrayIDLikes, e.target.dataset.id, increment, userUid || uidGoogle);
           const containerAll = document.querySelector('#root');
           const postSection2 = containerAll.querySelector('#containerPosts');
           postSection2.innerHTML = '';
           showAllPosts(postSection2);
-          red();
         }
       }
     });
