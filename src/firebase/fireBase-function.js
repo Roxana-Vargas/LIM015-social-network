@@ -7,6 +7,13 @@ export const registerUser = (email, password) => firebase.auth()
 export const loginUser = (emailLogin, passwordLogin) => firebase.auth()
   .signInWithEmailAndPassword(emailLogin, passwordLogin);
 
+/* **********Función para resetear password********** */
+export const resetPassword = (emailLogin) => firebase.auth()
+  .sendPasswordResetEmail(emailLogin);
+
+/* **********Función para enviar email de verificacion de registro********** */
+// export const emailVerification = () => firebase.auth().currentUser.sendEmailVerification();
+
 /* **********Función iniciar sesión con google********** */
 export const loginGoogle = () => {
   const providerGoogle = new firebase.auth.GoogleAuthProvider();
@@ -60,7 +67,6 @@ export const userValidation = () => {
     if (user) {
       console.log(user);
     } else {
-      console.log('no user');
       window.location.hash = '#/';
     }
   });

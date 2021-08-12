@@ -1,5 +1,4 @@
 import {
-  logOut,
   savePost,
   getPost,
   deletePost,
@@ -7,60 +6,21 @@ import {
   updatePost,
   updatelike,
   updateDislike,
-  userValidation,
 } from '../firebase/fireBase-function.js';
-
-export const Nav = () => {
-  userValidation();
-  const menuBurguer = document.getElementById('menuBurguer');
-  menuBurguer.classList = 'fas fa-bars';
-  const containerNav = document.createElement('section');
-  containerNav.classList = 'containerNav';
-  const container = document.createElement('nav');
-  containerNav.classList = 'disable';
-
-  // funcion toggle ícono de menu
-  menuBurguer.addEventListener('click', () => {
-    menuBurguer.classList.toggle('fa-times');
-    containerNav.classList.toggle('disable');
-  });
-
-  container.innerHTML = `
-  <section class='sectionNav'>
-    <ul class='navApp' id='menuDropdown'>
-      <li class='itemNav'><a href='#/application' class='linkNav'> Inicio </a></li>
-      <li class='itemNav'><a href='#/profile' class='linkNav'> Mi Perfil </a> </li>
-      <li class='itemNav'><a href='#/top' class='linkNav'> Top </a></li>
-      <li class= 'logOut itemNav'><a href='#/login'class='linkNav' > Log Out </a></li>
-    </ul>
-  </section>
-    `;
-  containerNav.appendChild(container);
-  const linklogOut = containerNav.querySelector('.logOut');
-
-  // Llamar funcion para desloguear
-  linklogOut.addEventListener('click', (event) => {
-    menuBurguer.classList = ('disable');
-    event.preventDefault();
-    logOut().then(() => {
-      window.location.hash = '#/login';
-    });
-    localStorage.clear();
-  });
-  return containerNav;
-};
+import { showAllPosts } from './templatePost.js';
 
 /* **********Función para cambiar color a likes********** */
-const likeColor = (likesPosts) => {
-  const userUid = localStorage.getItem('uid');
-  const uidGoogle = localStorage.getItem('uidGoogle');
-  if (likesPosts.includes(userUid || uidGoogle)) {
-    return 'redHeart';
-  }
-  return '';
-};
+// const likeColor = (likesPosts) => {
+//   const userUid = localStorage.getItem('uid');
+//   const uidGoogle = localStorage.getItem('uidGoogle');
+//   if (likesPosts.includes(userUid || uidGoogle)) {
+//     return 'redHeart';
+//   }
+//   return '';
+// };
 
 /* **********Función para mostrar todos los posts********** */
+/*
 const showAllPosts = async (section) => {
   const posts = await getPost();
   const emailUser = localStorage.getItem('email1');
@@ -74,7 +34,8 @@ const showAllPosts = async (section) => {
     <p class='userNameTag'>${doc.data().name}</p>
     <textarea readonly class='areaPost' id='${postId.id}'>${doc.data().post}</textarea>
     <section class="sectionIcons">
-    <section id="iconos" class="icons sectionIcons ${((doc.data().name === emailUser) || (doc.data().name === emailGoogle)) ? 'show' : 'hidden'}">
+    <section id="iconos" class="icons sectionIcons
+    ${((doc.data().name === emailUser) || (doc.data().name === emailGoogle)) ? 'show' : 'hidden'}">
       <i class="fas fa-check" data-id="${postId.id}" id='${postId.id}'></i>
       <i class="fas fa-edit btnEdit" data-id="${postId.id}"></i>
       <i class="fas fa-trash btnDelete" data-id="${postId.id}"></i>
@@ -83,7 +44,8 @@ const showAllPosts = async (section) => {
       <i class="fas fa-comment-alt"></i>
       <label for = "likeheart">
       <input id="heart" type="checkbox">
-      <i class="fas fa-heart ${likeColor(doc.data().array)}" data-id="${postId.id}"><span class="likeNumber">${doc.data().likePost}</span></i>
+      <i class="fas fa-heart ${likeColor(doc.data().array)}"
+      data-id="${postId.id}"><span class="likeNumber">${doc.data().likePost}</span></i>
       </label>
     </section>
     </section>
@@ -91,7 +53,7 @@ const showAllPosts = async (section) => {
       `;
     section.appendChild(newSection);
   });
-};
+}; */
 
 /* **********Función para editar post********** */
 const btnEdit = document.querySelector('#root');
@@ -154,11 +116,9 @@ export const appSection = () => {
       <span id="errorPost" class="error"></span>
       <button class="button" id="btnPost">Publicar</button>
     </section>
-    <section>
-    <!-- The Modal -->
+    <section> 
       <div id="myModal" class="modal" style="display: none;">
-      <!-- Modal content -->
-      <div class="modal-content">
+       <div class="modal-content">
       <p>¿Estás seguro que deses eliminar esta publicación?</p>
       <button id="btnAccept" class = "button">Aceptar</button> <button id="btnCancel" class = "button">Cancelar</button>
       </div>
