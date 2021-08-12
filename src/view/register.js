@@ -57,13 +57,11 @@ export const registerSection = () => {
     <p class="text">¿Ya tienes cuenta?  <span><a href="#/login" id="linkLogin" class="link">Inicia sesión</a></span></p>
   </section>
   `;
-  // const auth = firebase.auth();
   containerAll.appendChild(containerRegister);
   const btnRegister = containerAll.querySelector('#btnRegister');
   const linklogin = containerRegister.querySelector('.linkLogin');
 
   btnRegister.addEventListener('click', (event) => {
-    // const auth = firebase.auth();
     event.preventDefault();
     const name = containerAll.querySelector('#nameUser').value;
     const emailRegister = containerAll.querySelector('#emailRegister').value;
@@ -74,7 +72,6 @@ export const registerSection = () => {
     const errorConfirmPassword = containerAll.querySelector('#errorConfirmPassword');
     const errorAll = containerAll.querySelector('#errorAll');
     const messages = [];
-
     if (emailRegister === '' || passwordRegister === '' || name === '' || passwordConfirm === '') {
       messages.push('Llenar todos los campos');
       errorAll.innerHTML = messages;
@@ -90,6 +87,7 @@ export const registerSection = () => {
     } else {
       registerUser(emailRegister, passwordRegister)
         .then(() => {
+          // emailVerification();
           window.location.hash = '#/login';
         }).catch((err) => {
           const errorCode = err.code;

@@ -38,7 +38,7 @@ a {
 }
 
 .greetings{
-    margin: 3rem 0 0 0;
+    margin: 3rem 0 1rem 0;
     font-size: 18px;
     width: 280px;
     text-align: center;
@@ -446,6 +446,18 @@ visibility: visible;
 
 .modalvisible {
     display: block;
+}
+
+/****************** Modal Reset ****************/
+.successfully{
+    color: rgb(74, 184, 74);
+    margin: 0;
+    font-size: 13px;
+    text-align: center;
+}
+
+#emailReset{
+    max-width: 50%;
 }
 
 
