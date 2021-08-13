@@ -1,7 +1,8 @@
 export const notFound = () => {
   const containerError = document.createElement('section');
+  containerError.className = 'errorSection';
   containerError.innerHTML = `
-            <p>ERROR 404....!!!!!!!!!!</p>
+    <img class="error404" src="imagenes/404img.jpg"></img>
           `;
   return containerError;
 };

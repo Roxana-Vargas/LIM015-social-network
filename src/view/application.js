@@ -9,100 +9,6 @@ import {
 } from '../firebase/fireBase-function.js';
 import { showAllPosts } from './templatePost.js';
 
-/* **********Función para cambiar color a likes********** */
-// const likeColor = (likesPosts) => {
-//   const userUid = localStorage.getItem('uid');
-//   const uidGoogle = localStorage.getItem('uidGoogle');
-//   if (likesPosts.includes(userUid || uidGoogle)) {
-//     return 'redHeart';
-//   }
-//   return '';
-// };
-
-/* **********Función para mostrar todos los posts********** */
-/*
-const showAllPosts = async (section) => {
-  const posts = await getPost();
-  const emailUser = localStorage.getItem('email1');
-  const emailGoogle = localStorage.getItem('emailGoogle');
-  posts.forEach((doc) => { // recorre todos los posts obtenidos
-    const newSection = document.createElement('section');
-    const postId = doc.data();
-    postId.id = doc.id;
-    newSection.innerHTML += `
-    <section class='postTemplate'>
-    <p class='userNameTag'>${doc.data().name}</p>
-    <textarea readonly class='areaPost' id='${postId.id}'>${doc.data().post}</textarea>
-    <section class="sectionIcons">
-    <section id="iconos" class="icons sectionIcons
-    ${((doc.data().name === emailUser) || (doc.data().name === emailGoogle)) ? 'show' : 'hidden'}">
-      <i class="fas fa-check" data-id="${postId.id}" id='${postId.id}'></i>
-      <i class="fas fa-edit btnEdit" data-id="${postId.id}"></i>
-      <i class="fas fa-trash btnDelete" data-id="${postId.id}"></i>
-    </section>
-    <section class='icons sectionIcons '>
-      <i class="fas fa-comment-alt"></i>
-      <label for = "likeheart">
-      <input id="heart" type="checkbox">
-      <i class="fas fa-heart ${likeColor(doc.data().array)}"
-      data-id="${postId.id}"><span class="likeNumber">${doc.data().likePost}</span></i>
-      </label>
-    </section>
-    </section>
-    </section>
-      `;
-    section.appendChild(newSection);
-  });
-}; */
-
-/* **********Función para editar post********** */
-const btnEdit = document.querySelector('#root');
-let idPost = '';
-btnEdit.addEventListener('click', async (e) => {
-  if (e.target.className === 'fas fa-edit btnEdit') {
-    const postForEdit = await getPostForEdit(e.target.dataset.id);
-    idPost = postForEdit.id;
-    const container = document.querySelector('#root');
-    const areaPost = container.querySelectorAll('.areaPost');
-    areaPost.forEach((element) => {
-      const areaPostId = element.id;
-      if (areaPostId === idPost) {
-        element.removeAttribute('readonly');
-        element.classList.add('focus');
-      }
-    });
-    const btnsCheck = container.querySelectorAll('.fa-check');
-    btnsCheck.forEach((el) => {
-      const checkId = el.id;
-      if (checkId === idPost) {
-        el.classList.add('visibility');
-      }
-    });
-    btnsCheck.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const containerEdited = document.querySelector('#root');
-        const postEdited = containerEdited.querySelectorAll('.areaPost');
-        postEdited.forEach((el) => {
-          const postModified = el.id;
-          if (postModified === idPost) {
-            const newValuePost = el.value;
-            const post = newValuePost;
-            updatePost(idPost, {
-              post,
-            });
-          }
-          el.classList.remove('focus');
-          el.setAttribute('readonly', 'readonly');
-          const hideCheck = containerEdited.querySelectorAll('.fa-check');
-          hideCheck.forEach((btnCheck) => {
-            btnCheck.classList.remove('visibility');
-          });
-        });
-      });
-    });
-  }
-});
-
 export const appSection = () => {
   const containerAll = document.createElement('section');
   const containerApp = document.createElement('section');
@@ -110,13 +16,26 @@ export const appSection = () => {
   containerApp.className = 'postSection';
   containerApp.innerHTML = `
     <section class='cfr'>
+      <section class="userProfile">
+        <div class="photoProfile">
+        <img class="photo" src="imagenes/person-icon.png"></img>
+        <label id="select-profile" for="select-photo-profile">
+        <input type="file" id="select-photo-profile" class="hide" accept="image/jpeg, image/png">
+        <span class="edit-photo"><i class="fas fa-camera edit-photo-btn"></i></span>
+        </label>
+        </div>
+        <div class="user info">
+          <p>Nombre: USERNAME</p>
+          <p>Correo: USERMAIL</p>
+        </div>
+      </section>
       <section class="makePost">
       <input type="text" id="search" placeholder="Buscar">
       <textarea class="inputType" id="postTextarea" placeholder="Comparte con la comunidad"></textarea>
       <span id="errorPost" class="error"></span>
       <button class="button" id="btnPost">Publicar</button>
     </section>
-    <section> 
+    <section>
       <div id="myModal" class="modal" style="display: none;">
        <div class="modal-content">
       <p>¿Estás seguro que deses eliminar esta publicación?</p>
@@ -211,6 +130,54 @@ btnlike.addEventListener('click', async (e) => {
           showAllPosts(postSection2);
         }
       }
+    });
+  }
+});
+
+/* **********Función para editar post********** */
+const btnEdit = document.querySelector('#root');
+let idPost = '';
+btnEdit.addEventListener('click', async (e) => {
+  if (e.target.className === 'fas fa-edit btnEdit') {
+    const postForEdit = await getPostForEdit(e.target.dataset.id);
+    idPost = postForEdit.id;
+    const container = document.querySelector('#root');
+    const areaPost = container.querySelectorAll('.areaPost');
+    areaPost.forEach((element) => {
+      const areaPostId = element.id;
+      if (areaPostId === idPost) {
+        element.removeAttribute('readonly');
+        element.classList.add('focus');
+      }
+    });
+    const btnsCheck = container.querySelectorAll('.fa-check');
+    btnsCheck.forEach((el) => {
+      const checkId = el.id;
+      if (checkId === idPost) {
+        el.classList.add('visibility');
+      }
+    });
+    btnsCheck.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const containerEdited = document.querySelector('#root');
+        const postEdited = containerEdited.querySelectorAll('.areaPost');
+        postEdited.forEach((el) => {
+          const postModified = el.id;
+          if (postModified === idPost) {
+            const newValuePost = el.value;
+            const post = newValuePost;
+            updatePost(idPost, {
+              post,
+            });
+          }
+          el.classList.remove('focus');
+          el.setAttribute('readonly', 'readonly');
+          const hideCheck = containerEdited.querySelectorAll('.fa-check');
+          hideCheck.forEach((btnCheck) => {
+            btnCheck.classList.remove('visibility');
+          });
+        });
+      });
     });
   }
 });

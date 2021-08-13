@@ -9,7 +9,7 @@ import { changeView } from './view-controller/router.js';
 // import { registerSection } from './view/register.js';
 
 const init = () => {
-  changeView(window.location.hash = '#/');
+  // changeView(window.location.hash = '#/');
   changeView(window.location.hash);
   // console.log(window.location.hash);
   // en que ruta esta pagina
