@@ -6,6 +6,7 @@ import {
   updatePost,
   updatelike,
   updateDislike,
+  uploadPhoto,
 } from '../firebase/fireBase-function.js';
 import { showAllPosts } from './templatePost.js';
 
@@ -20,7 +21,8 @@ export const appSection = () => {
         <div class="photoProfile">
         <img class="photo" src="imagenes/person-icon.png"></img>
         <label id="select-profile" for="select-photo-profile">
-        <input type="file" id="select-photo-profile" class="hide" accept="image/jpeg, image/png">
+        <input type="file" id="select-photo-profile" class="inputUploadPhoto hide" accept="image/jpeg, image/png">
+        <button id="subirfoto" class ="btnUploadPhoto button" style="display: none;">Subir foto</button>
         <span class="edit-photo"><i class="fas fa-camera edit-photo-btn"></i></span>
         </label>
         </div>
@@ -178,6 +180,43 @@ btnEdit.addEventListener('click', async (e) => {
           });
         });
       });
+    });
+  }
+});
+
+/* subir y traer imagen de perfil */
+
+const photo = document.querySelector('#root');
+photo.addEventListener('click', (e) => {
+  if (e.target.className === 'inputUploadPhoto hide') {
+    const btnUploadPhoto = photo.querySelector('.btnUploadPhoto');
+    btnUploadPhoto.style.display = 'block';
+  }
+});
+photo.addEventListener('click', (e) => {
+  if (e.target.className === 'btnUploadPhoto button') {
+    const file = photo.querySelector('.inputUploadPhoto').files[0];
+    const userPhoto = uploadPhoto(file);
+    userPhoto.on('state_changed', () => {
+      // Handle progress
+      // const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      // console.log(progress);
+    }, () => {
+      // fallo al cargar
+    }, () => {
+      // carga exitosa
+      userPhoto.snapshot.ref.getDownloadURL()
+        .then((downloadURL) => {
+          const photoUrl = downloadURL;
+          const containerPhoto = document.querySelector('.photo');
+          containerPhoto.src = `${photoUrl}`;
+          const btnUploadPhoto = photo.querySelector('.btnUploadPhoto');
+          btnUploadPhoto.style.display = 'none';
+          // window.location.reload();
+          // const userUid = localStorage.getItem('uid');
+          // profilePhoto(userUid, downloadURL);
+          //   .then(() => window.location.reload());
+        });
     });
   }
 });

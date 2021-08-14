@@ -37,6 +37,7 @@ export const savePost = (name, post) => {
     post,
     likePost: 0,
     array: [],
+    photo: null,
   })
     .then(() => {
       console.log('Document successfully written!');
@@ -71,3 +72,11 @@ export const userValidation = () => {
     }
   });
 };
+
+/* Función para subir imagen de perfil */
+
+export const uploadPhoto = (file) => firebase.storage().ref('/userProfileImg/'.concat(file.name)).put(file);
+
+/* Guardar foto de perfil en firestore */
+
+export const profilePhoto = (userId, photoProfile) => firebase.firestore().collection('posts').doc(userId).update({ photo: photoProfile });
