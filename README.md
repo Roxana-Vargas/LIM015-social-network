@@ -26,23 +26,23 @@ Permite crear, editar, eliminar y likear contenido y generar relaciones con otra
 - Desktop
 
 ### Historias de usuario
-![Historias de usuario]()
+![Historias de usuario](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Historias%20de%20usuario.png)
 
 ## Prototipo en baja fidelidad
-![Login](    )
-![Registration](    )
-![Post](    )
+![Login](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/boceto-login.png)
+![Registration](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/boceto-registration.png)
+![Post](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/boceto-posts.png)
 ## Prototipo en alta fidelidad
 Trabajamos el prototipo de alta fidelidad con la herramienta Figma.
 ### Mobile
-![   ](    )
-![   ](    )
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/mobile-readme-1.PNG)
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/mobile-readme-2.PNG)
 ### Desktop
-![   ](    )
-![   ](    )
-![   ](    )
-![   ](    )
-![   ](    )
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Desktop%20-%20Welcome.png)
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Desktop%20-%20Login.png)
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Desktop%20-%20Registration.png)
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Desktop%20-%20Posts.png)
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Desktop%20-%20Not%20found.png)
 
 ## Objetivos de aprendizaje
 
