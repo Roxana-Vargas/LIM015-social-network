@@ -1,5 +1,4 @@
 import {
-  savePost,
   getPost,
   deletePost,
   getPostForEdit,
@@ -9,8 +8,10 @@ import {
   uploadPhoto,
 } from '../firebase/fireBase-function.js';
 import { showAllPosts } from './templatePost.js';
+import { savePost } from '../firebase/firebase-dataBase.js';
 
 export const appSection = () => {
+  const emailUser = localStorage.getItem('email');
   const containerAll = document.createElement('section');
   const containerApp = document.createElement('section');
   // containerAll.className = 'appSection';
@@ -22,13 +23,12 @@ export const appSection = () => {
         <img class="photo" src="imagenes/person-icon.png"></img>
         <label id="select-profile" for="select-photo-profile">
         <input type="file" id="select-photo-profile" class="inputUploadPhoto hide" accept="image/jpeg, image/png">
-        <button id="subirfoto" class ="btnUploadPhoto button" style="display: none;">Subir foto</button>
         <span class="edit-photo"><i class="fas fa-camera edit-photo-btn"></i></span>
+        <button id="subirfoto" class ="btnUploadPhoto button" style="display: none;">Subir foto</button>
         </label>
         </div>
         <div class="user info">
-          <p>Nombre: USERNAME</p>
-          <p>Correo: USERMAIL</p>
+          <p>${emailUser}</p>
         </div>
       </section>
       <section class="makePost">
@@ -81,7 +81,7 @@ export const appSection = () => {
     event.preventDefault();
     const errorPost = containerAll.querySelector('#errorPost');
     const post = containerAll.querySelector('#postTextarea').value; // al dar click, captura el valor ingresado en el textarea
-    const emailUser = localStorage.getItem('email');
+    // const emailUser = localStorage.getItem('email');
     const emailGoogle = localStorage.getItem('emailGoogle');
     if (post === '') {
       errorPost.innerHTML = 'Publicacion vacia';
@@ -187,10 +187,11 @@ btnEdit.addEventListener('click', async (e) => {
 /* subir y traer imagen de perfil */
 
 const photo = document.querySelector('#root');
+// const user = firebase.auth.currentUser();
 photo.addEventListener('click', (e) => {
   if (e.target.className === 'inputUploadPhoto hide') {
     const btnUploadPhoto = photo.querySelector('.btnUploadPhoto');
-    btnUploadPhoto.style.display = 'block';
+    btnUploadPhoto.style.display = 'inline-block';
   }
 });
 photo.addEventListener('click', (e) => {
@@ -216,6 +217,11 @@ photo.addEventListener('click', (e) => {
           // const userUid = localStorage.getItem('uid');
           // profilePhoto(userUid, downloadURL);
           //   .then(() => window.location.reload());
+          // const userUid = localStorage.getItem('uid');
+          // profilePhoto(userUid, downloadURL);
+          //   .then(() => window.location.reload());
+          // userDate(userUid, downloadURL);
+          // profilePhoto('xJj4ObmG5wP1rjw1WtE2', photoUrl);
         });
     });
   }

@@ -87,6 +87,7 @@ a {
     height: 2rem;
     align-items: center;
     border: none;
+    cursor: pointer;
 }
 
 .link {
@@ -97,6 +98,12 @@ a {
 /* ***** Welcome page style ***** */
 #logoWelcome{
     display: none;
+}
+
+.userProfile p{
+    color: #FB991C;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 .welcomeSection {
@@ -294,18 +301,13 @@ a {
     margin-top: 10px;
     display: flex;
     color: white;
-    background-color: #939393;
+    background-color: #F3F3F3;
     border-radius: 10px;
     width: 90%;
     flex-direction: column;
     align-items: center;
     align-self: center;
     padding: 10px;
-}
-
-
-.userProfile p{
-    counter-reset: white;
 }
 
 .photo{
@@ -325,6 +327,17 @@ a {
     font-size: 1.40rem;
     color: black;
 }
+
+.subirfoto{
+    display: inherit;
+}
+#select-profile{
+    position: relative;
+    left: -30px;
+    bottom: 10px;
+    cursor:pointer;
+}
+
 .hide{
     display: none;
 }
@@ -546,6 +559,7 @@ visibility: visible;
     margin-right: auto;
     padding-top: 120px;
 }
+
 
 /****************** Medias ****************/
 @media (min-width: 560px){

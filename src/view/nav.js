@@ -1,4 +1,14 @@
-import { logOut, userValidation } from '../firebase/fireBase-function.js';
+import { logOut } from '../firebase/fireBase-function.js';
+
+const userValidation = () => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      console.log(user);
+    } else {
+      window.location.hash = '#/';
+    }
+  });
+};
 
 export const Nav = () => {
   userValidation();
@@ -19,7 +29,6 @@ export const Nav = () => {
     <section class='sectionNav'>
       <ul class='navApp' id='menuDropdown'>
         <li class='itemNav'><a href='#/application' class='linkNav'> Inicio </a></li>
-        <li class='itemNav'><a href='#/profile' class='linkNav'> Mi Perfil </a> </li>
         <li class='itemNav'><a href='#/top' class='linkNav'> Top </a></li>
         <li class= 'logOut itemNav'><a href='#/login'class='linkNav' > Log Out </a></li>
       </ul>

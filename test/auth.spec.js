@@ -3,6 +3,7 @@ import {
   loginUser,
   loginGoogle,
   logOut,
+  resetPassword,
 } from '../src/firebase/fireBase-function.js';
 
 const firebasemock = require('firebase-mock');
@@ -46,3 +47,41 @@ describe('signInGoogle', () => {
       expect(user.providerData[0].providerId).toBe('google.com');
     }));
 });
+
+describe('resetPassword', () => {
+  it('Deberia enviar un email para restablecer contraseña', () => {
+    const mockSendPasswordResetEmail = jest.fn();
+    firebase.auth().sendPasswordResetEmail = mockSendPasswordResetEmail;
+    resetPassword('test@gmail.com');
+    // verificar si fue llamado el metodo de firebase
+    expect(mockSendPasswordResetEmail).toHaveBeenCalled();
+    expect(mockSendPasswordResetEmail.mock.calls).toHaveLength(1);
+    // verificar si el metodo recibio como arg el email
+    expect(mockSendPasswordResetEmail).toHaveBeenCalledWith('test@gmail.com');
+  });
+});
+
+// current User
+// describe('Verify current user ', () => {
+//   it('Deberia extraer a usuario logeado', () => {
+//     const mockUser = {
+//       currentUser: { uid: '001' },
+//     };
+//     firebase.auth().onAuthStateChanged().currentUser = mockUser.currentUser;
+//     expect(userValidation().uid).toEqual('001');
+//   });
+// });
+
+// Función currentUser
+// describe('Función para administrar usuarios firebase', () => {
+//   it('Debería mostrar el usuario ingresado', () => {
+//     const userMock = {
+//       currentUser: { id: 'abc01' },
+//     };
+//     firebase.auth().onAuthStateChanged().currentUser = userMock.currentUser;
+//     const isUser = (user) => {
+//       expect(user.id).toEqual('abc02');
+//     };
+//     userValidation(isUser);
+//   });
+// });

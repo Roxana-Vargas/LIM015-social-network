@@ -16,10 +16,6 @@ export const changeView = (route) => {
       root.appendChild(components.navegación());
       root.appendChild(components.application());
       break;
-    case '#/profile':
-      root.appendChild(components.navegación());
-      root.appendChild(components.Profile());
-      break;
     default:
       root.appendChild(components.NotFound());
   }
