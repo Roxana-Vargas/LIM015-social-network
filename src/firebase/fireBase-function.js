@@ -30,22 +30,17 @@ export const loginFacebook = () => {
 /* **********Función para cerrar sesión********** */
 export const logOut = () => firebase.auth().signOut();
 
-/* **********Función para guardar post en la base de datos********** */
-export const savePost = (name, post) => {
-  firebase.firestore().collection('posts').doc().set({ // guarda datos en una colección que se llame "posts", y dentro de este documento vamos a guardar los datos que en este caso será el post
-    name,
-    post,
-    likePost: 0,
-    array: [],
-    photo: null,
-  })
-    .then(() => {
-      console.log('Document successfully written!');
-    })
-    .catch((error) => {
-      console.error('Error writing document: ', error);
-    });
-};
+// /* **********Función para guardar post en la base de datos********** */
+// export const savePost = (name, post) => {
+//   firebase.firestore().collection('posts').doc().set({ // guarda datos en una colección
+// que se llame "posts", y dentro de este documento vamos a guardar los datos que
+// en este caso será el post
+//     name,
+//     post,
+//     likePost: 0,
+//     array: [],
+//   });
+// };
 
 /* **********Función para obtener los posts********** */
 export const getPost = () => firebase.firestore().collection('posts').get();
@@ -63,20 +58,26 @@ export const updatelike = (doc, id, value, uid) => firebase.firestore().collecti
 
 export const updateDislike = (id, value, newArray) => firebase.firestore().collection('posts').doc(id).update({ likePost: firebase.firestore.FieldValue.increment(value), array: newArray });
 
-export const userValidation = () => {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      console.log(user);
-    } else {
-      window.location.hash = '#/';
-    }
-  });
-};
-
 /* Función para subir imagen de perfil */
-
 export const uploadPhoto = (file) => firebase.storage().ref('/userProfileImg/'.concat(file.name)).put(file);
 
 /* Guardar foto de perfil en firestore */
 
-export const profilePhoto = (userId, photoProfile) => firebase.firestore().collection('posts').doc(userId).update({ photo: photoProfile });
+// export const profilePhoto = (userId, photoProfile)
+// => firebase.firestore().collection('datosUsuarios').doc(userId).update({ photo: photoProfile });
+
+// export const saveUserDate = (file, userId) => {
+//   firebase.firestore().collection('datosUsuarios').doc().set({
+//     files: file,
+//     userId,
+//   })
+//     .then(() => {
+//       console.log('guardo!');
+//     })
+//     .catch((error) => {
+//       console.error('no: ', error);
+//     });
+// };
+
+/* **********Función para obtener las fotos********** */
+// export const getPhotos = () => firebase.firestore().collection('datosUsuarios').get();
