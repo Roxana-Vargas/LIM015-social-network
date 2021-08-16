@@ -13,8 +13,8 @@ export const registerSection = () => {
     <p class="greetings">¡Conecta con otros programadores!</p>
   </section>
   <section class = "formulario">
-  <form class="formRegister">
-    <p class="text">Regístrate</p>
+    <form class="formRegister">
+      <p class="text">Regístrate</p>
       <div class="divRegister">
         <div class="imputIcon">
           <i class="fas fa-user"></i>
@@ -51,7 +51,7 @@ export const registerSection = () => {
       </div>
       <span id="errorAll" class="error"></span>
       <button type = "submit" class="button" class="inputType" id="btnRegister">Registrar</button>
-  </form>
+    </form>
   </section>
   <section class="linkLogin">
     <p class="text">¿Ya tienes cuenta?  <span><a href="#/login" id="linkLogin" class="link">Inicia sesión</a></span></p>
@@ -60,18 +60,19 @@ export const registerSection = () => {
   containerAll.appendChild(containerRegister);
   const btnRegister = containerAll.querySelector('#btnRegister');
   const linklogin = containerRegister.querySelector('.linkLogin');
+  const errorEmail = containerAll.querySelector('#errorEmail');
+  const errorPassword = containerAll.querySelector('#errorPassword');
+  const errorConfirmPassword = containerAll.querySelector('#errorConfirmPassword');
+  const errorAll = containerAll.querySelector('#errorAll');
+  const messages = [];
 
+  /* **********Para registrar cuenta********** */
   btnRegister.addEventListener('click', (event) => {
     event.preventDefault();
     const name = containerAll.querySelector('#nameUser').value;
     const emailRegister = containerAll.querySelector('#emailRegister').value;
     const passwordRegister = containerAll.querySelector('#passwordRegister').value;
     const passwordConfirm = containerAll.querySelector('#passwordConfirmRegister').value;
-    const errorEmail = containerAll.querySelector('#errorEmail');
-    const errorPassword = containerAll.querySelector('#errorPassword');
-    const errorConfirmPassword = containerAll.querySelector('#errorConfirmPassword');
-    const errorAll = containerAll.querySelector('#errorAll');
-    const messages = [];
     if (emailRegister === '' || passwordRegister === '' || name === '' || passwordConfirm === '') {
       messages.push('Llenar todos los campos');
       errorAll.innerHTML = messages;
@@ -87,7 +88,6 @@ export const registerSection = () => {
     } else {
       registerUser(emailRegister, passwordRegister)
         .then(() => {
-          // emailVerification();
           window.location.hash = '#/login';
         }).catch((err) => {
           const errorCode = err.code;
@@ -106,8 +106,10 @@ export const registerSection = () => {
     }
   });
 
+  /* **********Para volver a inicio********** */
   linklogin.addEventListener('click', () => {
     window.location.hash = '#/login';
   });
+
   return containerAll;
 };

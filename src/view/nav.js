@@ -26,17 +26,17 @@ export const Nav = () => {
   });
 
   container.innerHTML = `
-    <section class='sectionNav'>
+    <nav class='sectionNav'>
       <ul class='navApp' id='menuDropdown'>
         <li class='itemNav'><a href='#/application' class='linkNav'> Inicio </a></li>
         <li class='itemNav'><a href='#/top' class='linkNav'> Top </a></li>
         <li class= 'logOut itemNav'><a href='#/login'class='linkNav' > Log Out </a></li>
       </ul>
-    </section>
+    </nav>
       `;
   containerNav.appendChild(container);
-  const linklogOut = containerNav.querySelector('.logOut');
 
+  const linklogOut = containerNav.querySelector('.logOut');
   // Llamar funcion para desloguear
   linklogOut.addEventListener('click', (event) => {
     menuBurguer.classList = ('disable');
