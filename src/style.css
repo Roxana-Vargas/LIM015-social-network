@@ -292,7 +292,7 @@ a {
 .disable{
     display: none;
 } */
-.cfr{
+.mainContainer{
     display: flex;
     flex-direction: column;
 }
