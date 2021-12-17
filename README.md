@@ -44,6 +44,10 @@ Trabajamos el prototipo de alta fidelidad con la herramienta Figma.
 ![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Desktop%20-%20Posts.png)
 ![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/main/src/imagenes/Desktop%20-%20Not%20found.png)
 
+## Test Unitarios
+
+![](https://github.com/Roxana-Vargas/LIM015-social-network/blob/2f2d06581ac0bd90c4e9562811180707a8843510/src/imagenes/test.png)
+
 ## Objetivos de aprendizaje
 
 ### HTML
