@@ -345,6 +345,7 @@ Trabajamos el prototipo de alta fidelidad con la herramienta Figma.
 * Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_,
   _lines_, y _branches_.
 
+
 ### 5.8 Consideraciones técnicas UX
 
 * Hacer al menos 2 entrevistas con usuarios.
